@@ -1,62 +1,92 @@
-<script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+<template>
+    <div>
+        <div class="container-fluid  bg-light min-vh-100 py-5">
+            <div class="container">
+                <div class="col-4 offset-4">
+                    <div class="card border-0 rounded shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="my-2">Register</h4>
+                        </div>
+                        <div class="card-body">
+                            <form @submit.prevent="register">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Name</label>
+                                    <input type="text" :class="[ 'form-control', errors.name ? 'border border-danger' : '' ]" id="name" v-model="name">
+                                    <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Email</label>
+                                    <input type="text" :class="[ 'form-control', errors.email ? 'border border-danger' : '' ]" id="email" v-model="email">
+                                    <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Profile Photo</label>
+                                    <input :class="[ 'form-control', errors.image ? 'border border-danger' : '' ]" type="file" id="image" @change="selectImage">
+                                    <small class="text-danger" v-if="errors.image">{{ errors.image }}</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Password</label>
+                                    <input type="password" :class="[ 'form-control', errors.password ? 'border border-danger' : '' ]" id="password" v-model="password">
+                                    <small class="text-danger" v-if="errors.password">{{ errors.password }}</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Confirm Password</label>
+                                    <input type="confirmPassword" :class="['form-control', errors.confirmPassword ? 'border border-danger' : '' ]" id="confirmPassword" v-model="confirmPassword">
+                                    <!-- <small class="text-danger" v-if="errors.">{{ errors. }}</small> -->
+                                </div>
+                                <button class="btn btn-primary float-end" :disabled="loading">
+                                    <div v-show="loading" class="spinner-border spinner-border-sm text-light" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <span v-show="loading">wait...</span>
+                                    <span v-show="!loading">Register</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    terms: false,
-});
+    </div>
+</template>
 
-const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
+<script>
+    export default {
+        name: "Register",
+        data () {
+            return {
+                name: '' ,
+                email: '' ,
+                image: '' ,
+                password: '' ,
+                confirmPassword: '',
+                loading: false,
+            }
+        },
+        //## props
+        props: {
+            errors: Object
+        },
+        //## methods
+        methods: {
+            selectImage (e) {
+                this.image = e.target.files[0];
+            },
+            register(){
+                this.loading = true;
+                var data = new FormData();
+                data.append('name',this.name);
+                data.append('email',this.email);
+                data.append('image',this.image);
+                data.append('password',this.password);
+                Promise.resolve(this.$inertia.post("/register",data)).then( () => this.loading = false);
+                this.$inertia.post("/register",data).then(() => this.loading=false);
+            },
+        }
+    }
 </script>
 
-<template>
-    <BreezeGuestLayout>
-        <Head title="Register" />
+<style lang="stylus" scoped>
 
-        <BreezeValidationErrors class="mb-4" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="name" value="Name" />
-                <BreezeInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <BreezeLabel for="password_confirmation" value="Confirm Password" />
-                <BreezeInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
-                </Link>
-
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </BreezeButton>
-            </div>
-        </form>
-    </BreezeGuestLayout>
-</template>
+</style>
