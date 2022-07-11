@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionTag extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'question_id',
+        'tag_id',
+    ];
 }
