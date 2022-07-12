@@ -10,13 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct(){
+    public function create(){
         if(Auth::check()){
             return back();
         }
-    }
-
-    public function create(){
         return Inertia::render('Auth/Register');
     }
 
@@ -46,6 +43,9 @@ class AuthController extends Controller
    }
 
    public function loginPage(){
+        if(Auth::check()){
+            return back();
+        }
         return Inertia::render('Auth/Login');
    }
 
