@@ -30,7 +30,7 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Home');
 // })->name('dashboard');
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/',[PageController::class,'home'])->name('home');
 });
 
