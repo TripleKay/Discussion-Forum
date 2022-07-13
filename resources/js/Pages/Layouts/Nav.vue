@@ -29,13 +29,13 @@
                                         <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle btn py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
-                                            <span class="ms-2 fw-bold">Triple Kay</span>
+                                            <span class="ms-2 fw-bold">{{ $page.props.auth_user.name }}</span>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                                            <li><Link class="dropdown-item" href="/user/profile">Profile</Link></li>
                                             <li><a class="dropdown-item" href="#">Question</a></li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                                            <li><Link class="dropdown-item" href="/logout">Logout</Link></li>
                                         </ul>
                                         </li>
                                     </ul>
@@ -50,8 +50,12 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3'
     export default {
         name: "Nav",
+        components: {
+            Link
+        }
     }
 </script>
 

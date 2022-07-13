@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,10 +33,13 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 // })->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/',[PageController::class,'home'])->name('home');
+
+    Route::get('/profile',[ProfileController::class,'editProfile'])->name('editProfile');
 });
 
 
-Route::get('/register',[AuthController::class,'create'])->name('user.create');
-Route::post('/register',[AuthController::class,'store'])->name('user.store');
-Route::get('/login',[AuthController::class,'loginPage'])->name('user.loginPage');
-Route::post('/login',[AuthController::class,'userLogin'])->name('user.userLogin');
+Route::get('/register',[AuthController::class,'create'])->name('register');
+Route::post('/register',[AuthController::class,'store'])->name('postRegister');
+Route::get('/login',[AuthController::class,'loginPage'])->name('login');
+Route::post('/login',[AuthController::class,'userLogin'])->name('postLogin');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
