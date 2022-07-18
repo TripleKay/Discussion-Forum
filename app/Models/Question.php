@@ -18,9 +18,6 @@ class Question extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
-    public function like(){
-        return $this->hasMany(QuestionLike::class,'question_id');
-    }
 
     public function comment(){
         return $this->hasMany(QuestionComment::class,'question_id');

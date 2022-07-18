@@ -21,7 +21,7 @@ class PageController extends Controller
     }
 
     //like detail
-    public function likeDetial($questionId){
+    private function likeDetial($questionId){
         //check is_like
         $like = QuestionLike::where('question_id',$questionId)->where('user_id',Auth::user()->id)->first();
         if($like){
