@@ -32,7 +32,7 @@
                                             <span class="ms-2 fw-bold">{{ $page.props.auth_user.name }}</span>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><Link class="dropdown-item" href="/user/profile">Profile</Link></li>
+                                            <li><Link class="dropdown-item" href="/profile">Profile</Link></li>
                                             <li><a class="dropdown-item" href="#">Question</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><Link class="dropdown-item" href="/logout">Logout</Link></li>
