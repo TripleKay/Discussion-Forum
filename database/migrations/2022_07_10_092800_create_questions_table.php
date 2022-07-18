@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('title');
             $table->text('description');
-            $table->enum('is_fiexed',['true','false'])->default('false');
+            $table->enum('is_solved',['true','false'])->default('false');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

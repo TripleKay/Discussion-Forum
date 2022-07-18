@@ -12,7 +12,7 @@
             </div>
 
             <!-- ------------questions content box---------------  -->
-            <div v-for="que in $page.props.questions" :key="que.id" class="card border-0 mb-3" style="border-radius: 15px;">
+            <div v-for="(que,index) in questions" :key="que.id" class="card border-0 mb-3" style="border-radius: 15px;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
@@ -36,16 +36,16 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
                             <div class="me-3  d-flex align-items-center">
-                                <!-- <i class="fas text-center py-2 rounded-circle bg-light fa-heart text-danger" style="width: 30px; height: 30px"></i> -->
-                                <i @click="like(que.id)" class="fa fa-thumbs-up fw-normal text-center py-2 rounded-circle bg-light text-danger" style="width: 30px; height: 30px"></i>
+                                <i v-show="!que.isLike" @click="like(que.id,index)" class="far fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary" style="width: 30px; height: 30px"></i>
+                                <i v-show="que.isLike" @click="like(que.id,index)" class="fas fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary" style="width: 30px; height: 30px"></i>
+                                <span class="mb-0 ms-1 text-dark">{{ que.likeCount }}</span>
+                            </div>
+                            <div class="me-3  d-flex align-items-center">
+                                <i class="far fa-comment text-center py-2 rounded-circle bg-light  text-success" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">3</span>
                             </div>
                             <div class="me-3  d-flex align-items-center">
-                                <i class="fas fa-comment text-center py-2 rounded-circle bg-light  text-success" style="width: 30px; height: 30px"></i>
-                                <span class="mb-0 ms-1 text-dark">3</span>
-                            </div>
-                            <div class="me-3  d-flex align-items-center">
-                                <i class="fas text-center py-2 rounded-circle bg-light fa-star text-warning" style="width: 30px; height: 30px"></i>
+                                <i class="far text-center py-2 rounded-circle bg-light fa-star text-warning" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">3</span>
                             </div>
                         </div>
@@ -61,13 +61,37 @@
 import Master from "./Layouts/Master.vue";
     export default {
         name: 'Home',
+        data () {
+            return {
+                questions: '',
+            }
+        },
         components: {
             Master
         },
         methods: {
-            like (id) {
-                alert(id);
+            like (id,index) {
+                if(this.questions[index].isLike != true){
+                    this.questions[index].isLike = true;
+                    this.questions[index].likeCount++;
+                     axios.get(`question/like/${id}`).then((response) => {
+                        if(response.success){
+                            alert(response.success);
+                        }
+                    })
+                }else{
+                    this.questions[index].isLike = false;
+                    this.questions[index].likeCount--;
+                     axios.get(`question/disLike/${id}`).then((response) => {
+                        if(response.success){
+                            alert(response.success);
+                        }
+                    })
+                }
             }
+        },
+        created(){
+            this.questions = this.$page.props.questions;
         }
     }
 </script>

@@ -20,6 +20,25 @@ class PageController extends Controller
         return Inertia::render('Home')->with(['questions' => $questions]);
     }
 
+    //like
+    public function like($id){
+        QuestionLike::create([
+            'user_id' => Auth::user()->id,
+            'question_id' => $id,
+        ]);
+        return response()->json([
+            'success' => 'like success',
+        ]);
+    }
+
+    //dislike
+     public function disLike($id){
+        QuestionLike::where('question_id',$id)->where('user_id',Auth::user()->id)->delete();
+        return response()->json([
+            'success' => 'dislike success',
+        ]);
+    }
+
     //like detail
     private function likeDetial($questionId){
         //check is_like

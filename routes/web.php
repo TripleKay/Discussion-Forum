@@ -34,6 +34,9 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 Route::middleware('auth')->group(function () {
     Route::get('/',[PageController::class,'home'])->name('home');
 
+    Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
+    Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
+
     Route::get('/profile',[ProfileController::class,'editProfile'])->name('editProfile');
 });
 
