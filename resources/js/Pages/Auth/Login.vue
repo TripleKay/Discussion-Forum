@@ -4,8 +4,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-6 offset-3">
-                         <div class="card border-0 rounded shadow">
-                            <div class="card-header bg-primary text-white">
+                         <div class="card border-0 shadow"  style="border-radius: 15px">
+                            <div class="card-header bg-white border-0"  style="border-radius: 15px">
                                 <h4 class="my-2">Login</h4>
                             </div>
                             <div class="card-body">

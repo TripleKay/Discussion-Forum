@@ -7,15 +7,16 @@ use App\Models\QuestionLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-
+use App\Traits\Question as QuestionTrait;
 class PageController extends Controller
 {
+    use QuestionTrait;
     //index
     public function home(){
         $questions = Question::with(['user','comment','questionSave','tag'])->get();
         foreach($questions as $key => $question){
-            $question->isLike = $this->likeDetial($question->id)['isLike'];
-            $question->likeCount = $this->likeDetial($question->id)['likeCount'];
+            $question->isLike = $this->getLikeDetail($question->id)['isLike'];
+            $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
         }
         return Inertia::render('Home')->with(['questions' => $questions]);
     }
@@ -41,26 +42,10 @@ class PageController extends Controller
 
     //question detail
     public function questionDetail($slug){
-        return Inertia::render('Question/QuestionDetail');
+        $question = Question::where('slug',$slug)->with(['user','comment','questionSave','tag'])->first();
+        $question->isLike = $this->getLikeDetail($question->id)['isLike'];
+        $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
+        return Inertia::render('Question/QuestionDetail')->with(['question' => $question]);
     }
 
-    //like detail
-    private function likeDetial($questionId){
-        //check is_like
-        $like = QuestionLike::where('question_id',$questionId)->where('user_id',Auth::user()->id)->first();
-        if($like){
-            $isLike = true;
-        }else{
-            $isLike = false;
-        }
-
-        //like count
-        $likeCount = QuestionLike::where('question_id',$questionId)->count();
-        $data = [
-            'isLike' => $isLike,
-            'likeCount' => $likeCount
-        ];
-
-        return $data;
-    }
 }

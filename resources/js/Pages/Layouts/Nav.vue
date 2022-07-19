@@ -21,7 +21,7 @@
                                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                                     <ul class="navbar-nav  mb-2 mb-lg-0 d-flex">
                                         <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                        <Link class="nav-link active" aria-current="page" :href="route('home')">Home</Link>
                                         </li>
                                         <li class="nav-item">
                                         <a class="nav-link" href="#">Link</a>
