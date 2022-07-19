@@ -23,11 +23,24 @@
                             </div>
                         </div>
                         <div class="me-3  d-flex align-items-center">
-                            <i class="fas text-center py-2 rounded-circle bg-light fa-heart text-danger" style="width: 30px; height: 30px"></i>
+                            <i class="far fa-heart text-center py-2 rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
+                            <div class="btn-group">
+                                <i v-if="isOwned(que.user_id) == true" class="fas fa-ellipsis-v text-center py-2 rounded-circle bg-light text-secondary ms-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width: 30px; height: 30px"></i>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Delete Question</a></li>
+                                    <li><a class="dropdown-item" href="#">Question Is Solved</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="my-4">
-                        <h4>{{ que.title }}</h4>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="h6 mb-0 me-2">
+                                <span v-if="que.is_solved == 'true'" class="btn btn-light text-success btn-sm py-0">Is Solved !</span>
+                                <span v-else class="btn btn-light text-danger btn-sm py-0">Need Solved ?</span>
+                            </div>
+                            <h4 class="mb-0">{{ que.title }}</h4>
+                        </div>
                         <p class="text-black-50">{{ que.description }}</p>
                         <div class="">
                             <div v-for="tag in que.tag" :key="tag.id" class="badge bg-light text-secondary rounded-pill fw-normal me-1 mb-1">{{ tag.name }}</div>
@@ -36,20 +49,20 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
                             <div class="me-3  d-flex align-items-center">
-                                <i v-show="!que.isLike" @click="like(que.id,index)" class="far fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary" style="width: 30px; height: 30px"></i>
-                                <i v-show="que.isLike" @click="like(que.id,index)" class="fas fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary" style="width: 30px; height: 30px"></i>
+                                <i v-show="!que.isLike" @click="like(que.id,index)" class="far fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
+                                <i v-show="que.isLike" @click="like(que.id,index)" class="fas fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">{{ que.likeCount }}</span>
                             </div>
                             <div class="me-3  d-flex align-items-center">
                                 <i class="far fa-comment text-center py-2 rounded-circle bg-light  text-success" style="width: 30px; height: 30px"></i>
-                                <span class="mb-0 ms-1 text-dark">3</span>
+                                <span class="mb-0 ms-1 text-dark">{{ que.comment.length }}</span>
                             </div>
                             <div class="me-3  d-flex align-items-center">
                                 <i class="far text-center py-2 rounded-circle bg-light fa-star text-warning" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">3</span>
                             </div>
                         </div>
-                        <div class="btn btn-outline-secondary">Read More</div>
+                        <Link :href="route('question.detail',que.slug)" class="btn btn-outline-secondary">Read More</Link>
                     </div>
                 </div>
             </div>
@@ -59,6 +72,7 @@
 
 <script>
 import Master from "./Layouts/Master.vue";
+import { Link } from '@inertiajs/inertia-vue3'
     export default {
         name: 'Home',
         data () {
@@ -67,7 +81,7 @@ import Master from "./Layouts/Master.vue";
             }
         },
         components: {
-            Master
+            Master,Link
         },
         methods: {
             like (id,index) {
@@ -88,6 +102,14 @@ import Master from "./Layouts/Master.vue";
                         }
                     })
                 }
+            },
+            isOwned(userId){
+                var authUserId = this.$page.props.auth_user.id;
+                if(userId == authUserId){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         },
         created(){
@@ -96,6 +118,12 @@ import Master from "./Layouts/Master.vue";
     }
 </script>
 
-<style lang="stylus" scoped>
-
+<style  scoped>
+    .like:hover {
+        transform: scale(1.2) rotate(-30deg);
+        transition: .3s linear;
+    }
+    .dropdown-toggle::after{
+        display: none;
+    }
 </style>

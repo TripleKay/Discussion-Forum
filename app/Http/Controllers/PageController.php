@@ -32,11 +32,16 @@ class PageController extends Controller
     }
 
     //dislike
-     public function disLike($id){
+    public function disLike($id){
         QuestionLike::where('question_id',$id)->where('user_id',Auth::user()->id)->delete();
         return response()->json([
             'success' => 'dislike success',
         ]);
+    }
+
+    //question detail
+    public function questionDetail($slug){
+        return Inertia::render('Question/QuestionDetail');
     }
 
     //like detail

@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
+    Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
 
     Route::get('/profile',[ProfileController::class,'editProfile'])->name('editProfile');
 });
