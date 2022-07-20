@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
     Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
 
+    Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');
+
     Route::get('/profile',[ProfileController::class,'editProfile'])->name('editProfile');
 });
 

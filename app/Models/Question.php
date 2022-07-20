@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'slug',
@@ -15,6 +17,9 @@ class Question extends Model
         'description',
         'is_fiexed'
     ];
+
+    protected $appends = ['time'];
+
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
@@ -29,5 +34,10 @@ class Question extends Model
 
     public function tag(){
         return $this->belongsToMany(Tag::class,'question_tags');
+    }
+
+    public function getTimeAttribute(){
+        $time = new Carbon($this->created_at);
+        return $time->diffForHumans();
     }
 }

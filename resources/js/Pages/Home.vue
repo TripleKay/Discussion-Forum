@@ -5,7 +5,7 @@
             <div class="card mb-3 border-0" style="border-radius: 15px">
                 <div class="card-body">
                     <div class="d-flex">
-                        <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
+                        <img :src="imgPath+this.$page.props.auth_user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                         <input type="text" class="form-control rounded-pill ms-3" placeholder="enter your question ......">
                     </div>
                 </div>
@@ -16,10 +16,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
-                            <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
+                            <img :src="imgPath+que.user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                             <div class="ms-2">
                                 <h6 class="mb-0">{{ que.user.name }}</h6>
-                                <span class="text-black-50">6 min ago</span>
+                                <span class="text-black-50">{{ que.time }}</span>
                             </div>
                         </div>
                         <div class="me-3  d-flex align-items-center">
@@ -78,6 +78,7 @@ import { Link } from '@inertiajs/inertia-vue3'
         data () {
             return {
                 questions: '',
+                imgPath: '/uploads/users/',
             }
         },
         components: {

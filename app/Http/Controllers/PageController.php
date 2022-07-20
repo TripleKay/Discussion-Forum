@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\QuestionComment;
 use App\Models\QuestionLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,10 +43,25 @@ class PageController extends Controller
 
     //question detail
     public function questionDetail($slug){
-        $question = Question::where('slug',$slug)->with(['user','comment','questionSave','tag'])->first();
+        $question = Question::where('slug',$slug)->with(['user','comment.user','questionSave','tag'])->first();
         $question->isLike = $this->getLikeDetail($question->id)['isLike'];
         $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
         return Inertia::render('Question/QuestionDetail')->with(['question' => $question]);
+    }
+
+    //create comment
+    public function createComment(Request $request){
+        $currentComment = QuestionComment::create([
+            'user_id' => Auth::user()->id,
+            'question_id' => $request->questionId,
+            'comment' => $request->comment,
+        ]);
+
+        $comment = QuestionComment::where('id',$currentComment->id)->with('user')->first();
+        return response()->json([
+            'success' => true ,
+            'comment' => $comment,
+        ]);
     }
 
 }

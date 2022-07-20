@@ -5,10 +5,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
-                            <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
+                            <img :src="imgPath+question.user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                             <div class="ms-2">
-                                <h6 class="mb-0">Triplekay</h6>
-                                <span class="text-black-50">6 min ago</span>
+                                <h6 class="mb-0">{{ question.user.name }}</h6>
+                                <span class="text-black-50">{{ question.time }}</span>
                             </div>
                         </div>
                         <div class="me-3  d-flex align-items-center">
@@ -25,25 +25,25 @@
                     <div class="my-4">
                         <div class="d-flex align-items-center mb-2">
                             <div class="h6 mb-0 me-2">
-                                <!-- <span  class="btn btn-light text-success btn-sm py-0">Is Solved !</span> -->
-                                <span  class="btn btn-light text-danger btn-sm py-0">Need Solved ?</span>
+                                <span v-if="question.is_solved == 'true'" class="btn btn-light text-success btn-sm py-0">Is Solved !</span>
+                                <span v-else class="btn btn-light text-danger btn-sm py-0">Need Solved ?</span>
                             </div>
-                            <h4 class="mb-0">Quesiton title</h4>
+                            <h4 class="mb-0">{{ question.title }}</h4>
                         </div>
-                        <p class="text-black-50">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio sunt enim quod totam laboriosam explicabo ea, repudiandae incidunt aliquam a. Aspernatur dolorem dolorum voluptatibus eos explicabo, autem sequi quo ad?</p>
+                        <p class="text-black-50">{{ question.description }}</p>
                         <div class="">
-                            <div  class="badge bg-light text-secondary rounded-pill fw-normal me-1 mb-1">javascript</div>
+                            <div v-for="tag in question.tag" :key="tag.id" class="badge bg-light text-secondary rounded-pill fw-normal me-1 mb-1">{{tag.name}}</div>
                         </div>
                     </div>
                     <hr>
                     <div class="d-flex">
                         <div class="me-3  d-flex align-items-center">
                             <i  class="far fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
-                            <span class="mb-0 ms-1 text-dark">2</span>
+                            <span class="mb-0 ms-1 text-dark">{{ question.likeCount }}</span>
                         </div>
                         <div class="me-3  d-flex align-items-center">
                             <i class="far fa-comment text-center py-2 rounded-circle bg-light  text-success" style="width: 30px; height: 30px"></i>
-                            <span class="mb-0 ms-1 text-dark">3</span>
+                            <span class="mb-0 ms-1 text-dark">{{ question.comment.length }}</span>
                         </div>
                         <div class="me-3  d-flex align-items-center">
                             <i class="far text-center py-2 rounded-circle bg-light fa-star text-warning" style="width: 30px; height: 30px"></i>
@@ -54,36 +54,27 @@
                     <!-- comment  -->
                     <div class="">
                         <div class="d-flex mb-3">
-                            <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
-                            <input type="text" class="form-control rounded-pill ms-2" placeholder="enter your question ......">
-                            <button class="ms-2 btn btn-secondary rounded-circle"><i class="fas fa-paper-plane"></i></button>
+                            <img :src="imgPath+$page.props.auth_user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
+                            <form @submit.prevent="createComment" class="d-flex w-100">
+                                <input v-model="comment" type="text" class="form-control rounded-pill ms-2" placeholder="enter your question ......">
+                                <button  class="ms-2 btn btn-secondary rounded-circle"><i class="fas fa-paper-plane"></i></button>
+                            </form>
                         </div>
                         <!-- comment box  -->
-                        <div class="d-flex mb-3">
+                        <div v-for="comment in question.comment" :key="comment.id" class="d-flex mb-3">
                             <div class="d-flex">
-                                <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
+                                <img :src="imgPath+comment.user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                             </div>
-                            <div class="ms-2 bg-light p-3" style="border-radius: 15px">
+                            <div class="ms-2 bg-light p-3 w-100" style="border-radius: 15px">
                                 <div class="mb-2 d-flex align-items-center">
-                                    <h6 class="mb-0">Triplekay</h6>
-                                    <span class="text-black-50 ms-2">6 min ago</span>
+                                    <h6 class="mb-0">{{ comment.user.name }}</h6>
+                                    <span class="text-black-50 ms-2">{{ comment.time }}</span>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos tenetur itaque voluptate, nesciunt excepturi molestiae quasi enim perferendis, rem repudiandae iste quas mollitia ea sequi nostrum error ut ipsam corporis!</p>
+                                <p>{{ comment.comment }}</p>
                             </div>
                         </div>
-                        <!-- comment box  -->
-                        <div class="d-flex mb-3">
-                            <div class="d-flex">
-                                <img src="https://cdn2.iconfinder.com/data/icons/flatfaces-everyday-people-square/128/beard_male_man_face_avatar-512.png" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
-                            </div>
-                            <div class="ms-2 bg-light p-3" style="border-radius: 15px">
-                                <div class="mb-2 d-flex align-items-center">
-                                    <h6 class="mb-0">Triplekay</h6>
-                                    <span class="text-black-50 ms-2">6 min ago</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos tenetur itaque voluptate, nesciunt excepturi molestiae quasi enim perferendis, rem repudiandae iste quas mollitia ea sequi nostrum error ut ipsam corporis!</p>
-                            </div>
-                        </div>
+                        <!-- end comment box  -->
+
                     </div>
                 </div>
             </div>
@@ -98,6 +89,30 @@ import { Link } from '@inertiajs/inertia-vue3'
         name: "QuestionDetail",
         components: {
             Master,Link
+        },
+        data () {
+            return {
+                question: '',
+                comment: '',
+                imgPath: '/uploads/users/',
+            }
+        },
+        methods: {
+            createComment () {
+                const data = new FormData;
+                data.append('comment',this.comment);
+                data.append('questionId',this.question.id);
+                axios.post('/question/comment',data).then((response) => {
+                        if(response.data.success){
+                            this.question.comment.push(response.data.comment);
+                            this.comment = '';
+                        }
+                        console.log('success');
+                    })
+            }
+        },
+        created(){
+            this.question = this.$page.props.question;
         }
     }
 </script>
