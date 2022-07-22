@@ -1,7 +1,7 @@
 <template>
     <div>
         <Master>
-            <div class="card border-0 mb-4">
+            <div class="card border-0 mb-4"  style="border-radius: 15px;">
                 <div class="card-header bg-transparent">
                     <h5 class="mb-0 py-2">Edit Profile</h5>
                 </div>
@@ -10,21 +10,21 @@
                         <img :src="imageSrc" class="rounded-circle" alt="" srcset="" style="width: 100px; height: 100px">
                         <div class="my-3">
                             <label for="" class="form-label">Change Profile Photo</label>
-                            <input type="file" class="form-control" @change="selectImage">
+                            <input type="file" class="form-control" @change="selectImage"  style="border-radius: 15px;">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Name</label>
-                            <input type="text" class="form-control" v-model="name">
+                            <input type="text" class="form-control" v-model="name"  style="border-radius: 15px;">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Email</label>
-                            <input type="email" class="form-control" v-model="email">
+                            <input type="email" class="form-control" v-model="email"  style="border-radius: 15px;">
                         </div>
-                        <button class="btn btn-primary float-end mt-3">Edit Profile</button>
+                        <button class="btn btn-primary float-end mt-3">Update Profile</button>
                     </form>
                 </div>
             </div>
-            <div class="card border-0 mb-4">
+            <div class="card border-0 mb-4"  style="border-radius: 15px;">
                 <div class="card-header bg-transparent">
                     <h5 class="mb-0 py-2">Edit Password</h5>
                 </div>
@@ -32,17 +32,17 @@
                     <form action="">
                         <div class="mb-3">
                             <label for="" class="form-label">Old Password</label>
-                            <input type="password" class="form-control" >
+                            <input type="password" class="form-control"  style="border-radius: 15px;">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">New Password</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control"  style="border-radius: 15px;">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control" style="border-radius: 15px;">
                         </div>
-                        <button class="btn btn-primary float-end mt-3">Change Password</button>
+                        <button class="btn btn-primary float-end mt-3">Update Password</button>
                     </form>
                 </div>
             </div>

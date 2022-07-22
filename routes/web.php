@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,8 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 // })->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/',[PageController::class,'home'])->name('home');
+
+    Route::get('question/create',[QuestionController::class,'createQuestion'])->name('question.create');
 
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
