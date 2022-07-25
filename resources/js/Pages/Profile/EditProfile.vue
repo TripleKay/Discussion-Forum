@@ -26,7 +26,7 @@
             </div>
             <div class="card border-0 mb-4"  style="border-radius: 15px;">
                 <div class="card-header bg-transparent">
-                    <h5 class="mb-0 py-2">Edit Password</h5>
+                    <h5 class="mb-0 py-2">Change Password</h5>
                 </div>
                 <div class="card-body">
                     <form action="">
@@ -61,7 +61,7 @@ import Master from "../Layouts/Master.vue"
             return {
                 name: '',
                 email: '',
-                imageSrc: 'uploads/users/'+this.$page.props.auth_user.image,
+                imageSrc: '/uploads/users/'+this.$page.props.auth_user.image,
                 newImage: '',
             }
         },

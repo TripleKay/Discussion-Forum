@@ -14,7 +14,7 @@ class PageController extends Controller
     use QuestionTrait;
     //index
     public function home(){
-        $questions = Question::with(['user','comment','questionSave','tag'])->get();
+        $questions = Question::with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->get();
         foreach($questions as $key => $question){
             $question->isLike = $this->getLikeDetail($question->id)['isLike'];
             $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];

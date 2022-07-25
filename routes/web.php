@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/',[PageController::class,'home'])->name('home');
 
     Route::get('question/create',[QuestionController::class,'createQuestion'])->name('question.create');
+    Route::post('question/create',[QuestionController::class,'storeQuestion'])->name('question.store');
+
 
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
@@ -43,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');
 
-    Route::get('/profile',[ProfileController::class,'editProfile'])->name('editProfile');
+    Route::get('/profile/edit',[ProfileController::class,'editProfile'])->name('editProfile');
 });
 
 
