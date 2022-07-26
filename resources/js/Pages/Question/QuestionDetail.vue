@@ -107,7 +107,6 @@ import { Link } from '@inertiajs/inertia-vue3'
                             this.question.comment.push(response.data.comment);
                             this.comment = '';
                         }
-                        console.log('success');
                     })
             }
         },

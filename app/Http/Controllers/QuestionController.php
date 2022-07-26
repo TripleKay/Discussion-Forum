@@ -42,4 +42,12 @@ class QuestionController extends Controller
 
         return redirect()->route('home');
     }
+
+    //delete Question
+    public function deleteQuestion($id){
+        Question::where('id',$id)->delete();
+        return response()->json([
+            'success'=> true,
+        ]);
+    }
 }
