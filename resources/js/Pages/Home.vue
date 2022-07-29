@@ -12,7 +12,7 @@
             </div>
 
             <!-- ------------questions content box---------------  -->
-            <div v-for="(que,index) in questions" :key="que.id" class="card border-0 mb-3" style="border-radius: 15px;">
+            <div v-for="(que,index) in questions.data" :key="que.id" class="card border-0 mb-3" style="border-radius: 15px;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
@@ -66,12 +66,15 @@
                     </div>
                 </div>
             </div>
+
+            <Pagination :links="questions.links" />
         </Master>
     </div>
 </template>
 
 <script>
 import Master from "./Layouts/Master.vue";
+import Pagination from "./Components/Pagination.vue";
 import { Link } from '@inertiajs/inertia-vue3'
     export default {
         name: 'Home',
@@ -82,7 +85,7 @@ import { Link } from '@inertiajs/inertia-vue3'
             }
         },
         components: {
-            Master,Link
+            Master,Link,Pagination
         },
         methods: {
             like (id,index) {
