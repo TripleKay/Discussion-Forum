@@ -19,7 +19,7 @@ class ProfileController extends Controller
 
     //user question
     public function userQuestion(){
-        $questions = Question::where('user_id',Auth::user()->id)->with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->get();
+        $questions = Question::where('user_id',Auth::user()->id)->with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(5);
         foreach($questions as $key => $question){
             $question->isLike = $this->getLikeDetail($question->id)['isLike'];
             $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
