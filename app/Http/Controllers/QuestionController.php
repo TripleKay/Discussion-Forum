@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Question;
+use App\Models\QuestionSave;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,4 +61,31 @@ class QuestionController extends Controller
             'success'=> true,
         ]);
     }
+
+    //save question
+    public function saveQuestion(Request $request){
+        QuestionSave::create([
+            'user_id' => Auth()->user()->id,
+            'question_id' => $request->id
+        ]);
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    //unSave question
+    public function unSaveQuestion(Request $request){
+        QuestionSave::where('user_id',Auth()->user()->id)->where('question_id',$request->id)->delete();
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    //save question page
+    public function showSaveQuestion(){
+        $questions = QuestionSave::select('question_id')->where('user_id',Auth::user()->id)->with('question')->paginate(3);
+        return Inertia::render('Question/SavedQuestions')->with(['questions' => $questions]);
+    }
+
+
 }

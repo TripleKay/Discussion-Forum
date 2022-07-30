@@ -20,30 +20,22 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Home');
-// })->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/',[PageController::class,'home'])->name('home');
 
     //question
     Route::get('question/create',[QuestionController::class,'createQuestion'])->name('question.create');
     Route::post('question/create',[QuestionController::class,'storeQuestion'])->name('question.store');
+    Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
+    Route::get('question/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.delete');
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
-    Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
     Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');
-    Route::get('question/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.delete');
     Route::post('question/makeSolved',[QuestionController::class,'makeSolved'])->name('question.makeSolved');
+    Route::get('question/save',[QuestionController::class,'showSaveQuestion'])->name('showSaveQuestion');
+    Route::post('question/save',[QuestionController::class,'saveQuestion'])->name('question.save');
+    Route::post('question/unsave',[QuestionController::class,'unSaveQuestion'])->name('question.unSave');
+
 
     //profile
     Route::get('/profile/edit',[ProfileController::class,'editProfile'])->name('profile.edit');

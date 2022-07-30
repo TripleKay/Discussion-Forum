@@ -7,12 +7,6 @@
                         <nav class="navbar navbar-expand-lg  bg-white">
                             <div class="container-fluid">
                                 <a class="navbar-brand text-uppercase" href="#">My Forum</a>
-                                <div class="d-flex justify-content-center w-100">
-                                    <form class="d-flex" role="search">
-                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit">Search</button>
-                                    </form>
-                                </div>
 
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span class="navbar-toggler-icon"></span>
@@ -21,10 +15,10 @@
                                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                                     <ul class="navbar-nav  mb-2 mb-lg-0 d-flex">
                                         <li class="nav-item">
-                                        <Link class="nav-link active" aria-current="page" :href="route('home')">Home</Link>
+                                            <Link class="nav-link active" aria-current="page" :href="route('home')">Home</Link>
                                         </li>
                                         <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
+                                            <Link class="nav-link " :href="route('showSaveQuestion')">Saved Questions</Link>
                                         </li>
                                         <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle btn py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,10 +26,10 @@
                                             <span class="ms-2 fw-bold">{{ $page.props.auth_user.name }}</span>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><Link class="dropdown-item" href="/profile/edit">Profile</Link></li>
-                                            <li><a class="dropdown-item" href="#">Question</a></li>
+                                            <li><Link class="dropdown-item" href="/profile/edit"><i class="fas fa-user-edit me-2"></i>Profile</Link></li>
+                                            <li><Link :href="route('profile.userQuestion')" class="dropdown-item"><i class="fas fa-question-circle me-2"></i>Your Questions</Link></li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><Link class="dropdown-item" href="/logout">Logout</Link></li>
+                                            <li><Link class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</Link></li>
                                         </ul>
                                         </li>
                                     </ul>

@@ -14,7 +14,10 @@
                         </div>
                         <!-- ------------menu---------------  -->
                         <div class="me-3  d-flex align-items-center">
-                            <i class="far fa-heart text-center py-2 rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
+                            <!-- ------------save---------------  -->
+                            <i v-show="!que.isSaved" @click="saveQuestion(que.id,index)" class="far fa-heart text-center py-2 rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
+                            <i v-show="que.isSaved" @click="unSaveQuestion(que.id,index)" class="fas fa-heart text-center py-2 rounded-circle bg-light text-danger" style="width: 30px; height: 30px"></i>
+                            <!-- ------------drop down---------------  -->
                             <div class="btn-group">
                                 <i v-if="isOwned(que.user_id) == true" class="fas fa-ellipsis-v text-center py-2 rounded-circle bg-light text-secondary ms-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width: 30px; height: 30px"></i>
                                 <ul class="dropdown-menu">
@@ -35,7 +38,7 @@
                             <h4 class="mb-0">{{ que.title }}</h4>
                         </div>
                         <!-- ------------description---------------  -->
-                        <p class="text-black-50">{{ que.description }}</p>
+                        <p class="text-black-50">{{ que.description.substring(0,280) }}.....</p>
                         <!-- ------------tags---------------  -->
                         <div class="">
                             <div v-for="tag in que.tag" :key="tag.id" class="badge bg-light text-secondary rounded-pill fw-normal me-1 mb-1">{{ tag.name }}</div>
@@ -44,17 +47,20 @@
                     <!-- ------------reactions---------------  -->
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
+                            <!-- ------------likes---------------  -->
                             <div class="me-3  d-flex align-items-center">
                                 <i v-show="!que.isLike" @click="like(que.id,index)" class="far fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
                                 <i v-show="que.isLike" @click="like(que.id,index)" class="fas fa-thumbs-up text-center py-2 rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">{{ que.likeCount }}</span>
                             </div>
+                            <!-- ------------comments---------------  -->
                             <div class="me-3  d-flex align-items-center">
                                 <i class="far fa-comment text-center py-2 rounded-circle bg-light  text-success" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">{{ que.comment.length }}</span>
                             </div>
+                            <!-- ------------views---------------  -->
                             <div class="me-3  d-flex align-items-center">
-                                <i class="far text-center py-2 rounded-circle bg-light fa-star text-warning" style="width: 30px; height: 30px"></i>
+                                <i class="far fa-eye text-center py-2 rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">3</span>
                             </div>
                         </div>
@@ -124,6 +130,26 @@ import { Link } from '@inertiajs/inertia-vue3'
                 axios.post(this.route('question.makeSolved'),data).then((response) => {
                     if(response.data.success){
                         this.questions[index].is_solved = "true";
+                    }
+                })
+            },
+
+            saveQuestion(id,index){
+                var data = new FormData;
+                data.append('id',id);
+                axios.post(this.route('question.save'),data).then((response) => {
+                    if(response.data.success){
+                        this.questions[index].isSaved = true;
+                    }
+                })
+            },
+
+            unSaveQuestion(id,index){
+                var data = new FormData;
+                data.append('id',id);
+                axios.post(this.route('question.unSave'),data).then((response) => {
+                    if(response.data.success){
+                        this.questions[index].isSaved = false;
                     }
                 })
             }

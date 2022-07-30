@@ -8,6 +8,7 @@ use App\Models\Question;
 use App\Models\QuestionLike;
 use Illuminate\Http\Request;
 use App\Models\QuestionComment;
+use App\Models\QuestionSave;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Question as QuestionTrait;
 
@@ -20,6 +21,14 @@ class PageController extends Controller
             $slug = $request->tag;
             $tag = Tag::where('slug',$slug)->first();
             $questions = $tag->question()->with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
+        }elseif($request->type){
+            if($request->type == 'answered'){
+                $questions = Question::whereHas('comment',function($query){
+                    $query->where('user_id',Auth::user()->id);
+                })->with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
+            }elseif($request->type == 'unanswered'){
+                $questions = Question::has('comment','<','1')->with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
+            }
         }else{
             $questions = Question::with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
         }
@@ -27,6 +36,7 @@ class PageController extends Controller
         foreach($questions as $key => $question){
             $question->isLike = $this->getLikeDetail($question->id)['isLike'];
             $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
+            $question->isSaved = $this->checkSaveQuestion($question->id);
         }
         return Inertia::render('Home')->with(['questions' => $questions]);
     }
@@ -71,6 +81,17 @@ class PageController extends Controller
             'success' => true ,
             'comment' => $comment,
         ]);
+    }
+
+    //save question check on user
+    private function checkSaveQuestion($questionId){
+        $saveQuestion = QuestionSave::where('question_id',$questionId)->where('user_id',auth()->user()->id)->first();
+        if($saveQuestion){
+            $isSaved = true;
+        }else{
+            $isSaved = false;
+        }
+        return $isSaved;
     }
 
 }

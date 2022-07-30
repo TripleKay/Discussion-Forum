@@ -7,11 +7,11 @@
             <div class="container">
                 <div class="row py-5">
                     <!-- ------------tags---------------  -->
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <SideBar></SideBar>
                     </div>
                     <!-- ------------questions---------------  -->
-                    <div class="col-8">
+                    <div class="col-12 col-md-8">
                         <slot></slot>
                     </div>
                 </div>
