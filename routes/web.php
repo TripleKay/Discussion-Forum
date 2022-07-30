@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
     Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');
     Route::get('question/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.delete');
+    Route::post('question/makeSolved',[QuestionController::class,'makeSolved'])->name('question.makeSolved');
 
     //profile
     Route::get('/profile/edit',[ProfileController::class,'editProfile'])->name('profile.edit');

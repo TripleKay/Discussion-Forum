@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use Inertia\Inertia;
 use App\Models\Question;
-use App\Models\QuestionComment;
 use App\Models\QuestionLike;
 use Illuminate\Http\Request;
+use App\Models\QuestionComment;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 use App\Traits\Question as QuestionTrait;
+
 class PageController extends Controller
 {
     use QuestionTrait;
     //index
-    public function home(){
-        $questions = Question::with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
+    public function home(Request $request){
+        if($request->tag){
+            $slug = $request->tag;
+            $tag = Tag::where('slug',$slug)->first();
+            $questions = $tag->question()->with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
+        }else{
+            $questions = Question::with(['user','comment','questionSave','tag'])->orderBy('id','DESC')->paginate(3);
+        }
         // return $questions;
         foreach($questions as $key => $question){
             $question->isLike = $this->getLikeDetail($question->id)['isLike'];

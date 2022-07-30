@@ -20,7 +20,7 @@
                                 <ul class="dropdown-menu">
                                     <li><button class="dropdown-item"><i class="fas fa-edit me-2"></i>Edit Question</button></li>
                                     <li><button @click="deleteQuestion(que.id,index)" class="dropdown-item"><i class="fas fa-trash me-2"></i>Delete Question</button></li>
-                                    <li><button class="dropdown-item"><i class="far fa-check-circle me-2"></i>Question Is Solved</button></li>
+                                    <li v-show="que.is_solved == 'false'"><button @click="makeSolved(que.id,index)" class="dropdown-item"><i class="far fa-check-circle me-2"></i>Question Is Solved</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -116,6 +116,16 @@ import { Link } from '@inertiajs/inertia-vue3'
                             this.questions.splice(index,1);
                         }
                     })
+            },
+
+            makeSolved(id,index){
+                var data = new FormData;
+                data.append('id',id);
+                axios.post(this.route('question.makeSolved'),data).then((response) => {
+                    if(response.data.success){
+                        this.questions[index].is_solved = "true";
+                    }
+                })
             }
 
         },

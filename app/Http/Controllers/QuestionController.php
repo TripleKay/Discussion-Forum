@@ -50,4 +50,14 @@ class QuestionController extends Controller
             'success'=> true,
         ]);
     }
+
+    //make solved
+    public function makeSolved(Request $request){
+        Question::where('id',$request->id)->update([
+            'is_solved' => 'true'
+        ]);
+        return response()->json([
+            'success'=> true,
+        ]);
+    }
 }

@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <div class="" v-for="tag in $page.props.tags" :key="tag.id">
-                    <Link href="" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;">{{ tag.name }}</Link>
+                    <Link :href="'/?tag='+tag.slug" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;">{{ tag.name }}</Link>
                 </div>
             </div>
         </div>
