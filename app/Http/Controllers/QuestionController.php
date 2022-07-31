@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
+    //search question
+    public function searchQuestion(Request $request){
+        $questions = Question::select('id','title','slug')->where('title','like','%'.$request->searchKey.'%')->get();
+        return response()->json([
+            'questions' => $questions,
+        ]);
+    }
+
     //create question
     public function createQuestion(){
         return Inertia::render('Question/QuestionCreate');
@@ -80,12 +88,5 @@ class QuestionController extends Controller
             'success' => true,
         ]);
     }
-
-    //save question page
-    public function showSaveQuestion(){
-        $questions = QuestionSave::select('question_id')->where('user_id',Auth::user()->id)->with('question')->paginate(3);
-        return Inertia::render('Question/SavedQuestions')->with(['questions' => $questions]);
-    }
-
 
 }

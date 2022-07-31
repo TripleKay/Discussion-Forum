@@ -1,17 +1,6 @@
 <template>
     <div>
         <Master>
-            <!-- ------------new questions create box---------------  -->
-            <div class="card mb-3 border-0" style="border-radius: 15px">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <img :src="imgPath+this.$page.props.auth_user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
-                        <Link :href="route('question.create')" class="btn w-100 p-0 m-0 ms-3"><input type="text" class="form-control rounded-pill" placeholder="enter your question ......"></Link>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ------------questions content box---------------  -->
             <div v-for="(que,index) in questions.data" :key="index" class="card border-0 mb-3" style="border-radius: 15px">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">

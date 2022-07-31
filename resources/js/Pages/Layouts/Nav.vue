@@ -18,7 +18,36 @@
                                             <Link class="nav-link active" aria-current="page" :href="route('home')">Home</Link>
                                         </li>
                                         <li class="nav-item">
-                                            <Link class="nav-link " :href="route('showSaveQuestion')">Saved Questions</Link>
+                                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" >
+                                                <div class="modal-content bg-light" style="border-radius: 15px">
+
+                                                <div class="modal-body">
+
+                                                    <div class="d-flex bg-white overflow-hidden mb-3 searchBox" style="border-radius: 15px; border: 1px solid var(--bs-secondary)">
+                                                        <div class="d-flex align-items-center ps-3  text-secondary bg-white"><i class="fas fa-search"></i></div>
+                                                        <input @keyup="search()" v-model="searchKey" type="text" class="form-control form-control-lg border-0" placeholder="search question...">
+                                                    </div>
+                                                    <div v-show="searchKey.length == 0" class="text-center py-4" style="border-radius: 5px">
+                                                        <p>No recent searches</p>
+                                                    </div>
+                                                    <div class="overflow-hidden" style="border-radius: 5px">
+                                                         <div @click="questionDetail(que.slug)" v-for="(que,index) in questions" :key="index"  data-bs-dismiss="modal" class="questionBox btn d-flex justify-content-between align-items-center text-start w-100 py-3 px-3 bg-white mt-1">
+                                                            <p class="mb-0">{{ que.title }}</p>
+                                                            <i class="fas fa-angle-right"></i>
+                                                        </div>
+                                                    </div>
+                                                     <div v-if="questions.length == 0 && searchKey.length != 0" class="text-center py-4" style="border-radius: 5px">
+                                                        <p class="text-danger">No results for "{{searchKey}}"</p>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
                                         </li>
                                         <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle btn py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,10 +78,37 @@ import { Link } from '@inertiajs/inertia-vue3'
         name: "Nav",
         components: {
             Link
+        },
+        data () {
+            return {
+                searchKey: '',
+                questions: '',
+            }
+        },
+        methods: {
+            search () {
+                if(this.searchKey.length != 0){
+                    let data = { searchKey: this.searchKey};
+                    axios.post(this.route('question.search'),data).then((response) => {
+                            this.questions = response.data.questions;
+                        })
+                }else{
+                    this.questions = '';
+                }
+            },
+            questionDetail(slug){
+                this.$inertia.get(this.route('question.detail',slug));
+            }
         }
     }
 </script>
 
-<style lang="stylus" scoped>
-
+<style scoped>
+    .searchBox input:focus{
+        box-shadow: none;
+    }
+    .questionBox:hover{
+        background: var(--bs-secondary) !important;
+        color: #fff !important;
+    }
 </style>

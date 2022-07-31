@@ -22,7 +22,7 @@
                     <Link href="" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-lock me-2"></i>Change Password</Link>
                     <Link :href="route('profile.userQuestion')" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;">
                         <i class="fas fa-question-circle me-2"></i>Your Questions</Link>
-                    <Link :href="route('profile.userQuestion')" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-heart me-2"></i>Saved Questions</Link>
+                    <Link :href="route('showSaveQuestion')" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-heart me-2"></i>Saved Questions</Link>
                 </div>
             </div>
         </div>
