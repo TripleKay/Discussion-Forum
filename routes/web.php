@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::post('question/create',[QuestionController::class,'storeQuestion'])->name('question.store');
     Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
     Route::get('question/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.delete');
+    Route::get('question/edit',[QuestionController::class,'editQuestion'])->name('question.edit');
+    Route::post('question/edit',[QuestionController::class,'updateQuestion'])->name('question.update');
+
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
     Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');

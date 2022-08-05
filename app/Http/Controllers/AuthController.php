@@ -21,8 +21,9 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users',
-            'password' => 'required|min:6',
-            'image' => 'required|mimes:png,jpg,jpeg'
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' =>'required',
+            'image' => 'required|mimes:jpeg,png,jpg|dimensions:ratio=1/1',
         ]);
 
         $file = $request->file('image');

@@ -52,6 +52,12 @@ class QuestionController extends Controller
         return redirect()->route('home');
     }
 
+    //redirect edit question page
+    public function editQuestion($id){
+        $question = Question::where('id',$id)->with(['tag'])->first();
+        return Inertia::render('Question/QuestionEdit')->with(['question' => $question]);
+    }
+
     //delete Question
     public function deleteQuestion($id){
         Question::where('id',$id)->delete();

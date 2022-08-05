@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="container-fluid bg-light min-vh-100 py-5">
+        <div class="container-fluid bg-light min-vh-100 d-flex align-items-center">
             <div class="container">
                 <div class="row">
-                    <div class="col-6 offset-3">
+                    <div class="col-12 col-md-6 offset-md-3">
                          <div class="card border-0 shadow"  style="border-radius: 15px">
                             <div class="card-header bg-white border-0"  style="border-radius: 15px">
                                 <h4 class="my-2">Login</h4>
@@ -16,21 +16,25 @@
                                 <form @submit.prevent="login">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Email</label>
-                                        <input type="email" :class="[ 'form-control', errors.email ? 'border border-danger' : '' ]" id="email" v-model="email">
+                                        <input type="email" :class="[ 'form-control', errors.email ? 'border border-danger' : '' ]" id="email" v-model="email" style="border-radius: 15px;">
                                         <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Password</label>
-                                        <input type="password" :class="[ 'form-control', errors.password ? 'border border-danger' : '' ]" id="password" v-model="password">
+                                        <input type="password" :class="[ 'form-control', errors.password ? 'border border-danger' : '' ]" id="password" v-model="password" style="border-radius: 15px;">
                                         <small class="text-danger" v-if="errors.password">{{ errors.password }}</small>
                                     </div>
-                                    <button class="btn btn-primary float-end" :disabled="loading">
+                                    <div class="mt-4 d-flex align-items-center">
+                                        <button class="btn btn-primary" :disabled="loading">
                                         <div v-show="loading" class="spinner-border spinner-border-sm text-light" role="status">
                                             <span class="visually-hidden">Loading...</span>
                                         </div>
                                         <span v-show="loading">wait...</span>
                                         <span v-show="!loading">Login</span>
-                                    </button>
+                                        </button>
+                                        <p class="mb-0 ms-3">If you don't have an account,<Link :href="route('register')" class="text-danger">REGISTER HERE</Link> </p>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
@@ -42,6 +46,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
     export default {
         name: 'Login',
         data () {
@@ -50,6 +55,9 @@
                 password: '',
                 loading: false,
             }
+        },
+        components: {
+            Link
         },
         props: {
             errors : Object,
