@@ -24,28 +24,7 @@
                     </form>
                 </div>
             </div>
-            <div class="card border-0 mb-4"  style="border-radius: 15px;">
-                <div class="card-header bg-transparent">
-                    <h5 class="mb-0 py-2">Change Password</h5>
-                </div>
-                <div class="card-body">
-                    <form action="">
-                        <div class="mb-3">
-                            <label for="" class="form-label">Old Password</label>
-                            <input type="password" class="form-control"  style="border-radius: 15px;">
-                        </div>
-                        <div class="mb-3">
-                            <label for="" class="form-label">New Password</label>
-                            <input type="password" class="form-control"  style="border-radius: 15px;">
-                        </div>
-                        <div class="mb-3">
-                            <label for="" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" style="border-radius: 15px;">
-                        </div>
-                        <button class="btn btn-primary float-end mt-3">Update Password</button>
-                    </form>
-                </div>
-            </div>
+            
         </Master>
     </div>
 </template>

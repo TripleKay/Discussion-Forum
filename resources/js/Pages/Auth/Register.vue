@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6 offset-md-3">
                         <div class="card border-0 shadow" style="border-radius: 15px">
-                            <div class="card-header bg-white border-0" style="border-radius: 15px">
+                            <div class="card-header bg-transparent">
                                 <h4 class="my-2">Register</h4>
                             </div>
                             <div class="card-body">

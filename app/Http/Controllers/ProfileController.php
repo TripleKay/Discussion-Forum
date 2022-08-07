@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Question;
 use App\Models\QuestionSave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Traits\Question as QuestionTrait;
 
 class ProfileController extends Controller
@@ -16,6 +18,40 @@ class ProfileController extends Controller
     //edit profile
     public function editProfile(){
         return Inertia::render('Profile/EditProfile');
+    }
+
+    //edit password
+    public function editPassword(){
+        return Inertia::render('Profile/EditPassword');
+    }
+
+    //update password
+    public function updatePassword(Request $request){
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required',
+            'confirmPassword' => 'required',
+        ]);
+
+        $oldPassword = $request->oldPassword;
+        $newPassword = $request->newPassword;
+        $confirmPassword = $request->confirmPassword;
+
+        $userData = User::where('id',auth()->user()->id)->first();
+        $oldHashPassword = $userData->password;
+
+        if(Hash::check($oldPassword,$oldHashPassword)){
+            if($newPassword == $confirmPassword){
+                User::where('id',auth()->user()->id)->update([
+                    'password' => Hash::make($newPassword),
+                ]);
+                return back()->with(['success' => 'Your password changed successfully']);
+            }else{
+                return back()->with(['message' => 'confirm password and new password must be same!']);
+            }
+        }else{
+            return back()->with(['message' => 'Your Old Password does not match']);
+        }
     }
 
     //user question

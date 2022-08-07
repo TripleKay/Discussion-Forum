@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="">
                     <Link :href="route('profile.edit')" :class="{ 'active': route().current('profile.edit') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-user-edit me-2"></i>Edit Profile</Link>
-                    <Link href="" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-lock me-2"></i>Change Password</Link>
+                    <Link :href="route('profile.editPassword')" :class="{ 'active': route().current('profile.editPassword') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-lock me-2"></i>Change Password</Link>
                     <Link :href="route('profile.userQuestion')" :class="{ 'active': route().current('profile.userQuestion') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;">
                         <i class="fas fa-question-circle me-2"></i>Your Questions</Link>
                     <Link :href="route('showSaveQuestion')" :class="{ 'active': route().current('showSaveQuestion') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-heart me-2"></i>Saved Questions</Link>

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
 
     //profile
     Route::get('/profile/edit',[ProfileController::class,'editProfile'])->name('profile.edit');
+    Route::post('/profile/updateProfile',[ProfileController::class,'updateProfile'])->name('profile.update');
+    Route::get('/profile/editPassword',[ProfileController::class,'editPassword'])->name('profile.editPassword');
+    Route::post('/profile/updatePassword',[ProfileController::class,'updatePassword'])->name('profile.updatePassword');
     Route::get('/profile/userQuestion',[ProfileController::class,'userQuestion'])->name('profile.userQuestion');
     Route::get('profile/savedQuestion',[ProfileController::class,'showSaveQuestion'])->name('showSaveQuestion');
 });
