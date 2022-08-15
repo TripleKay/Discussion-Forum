@@ -1,5 +1,6 @@
 <template>
     <div>
+        <slot></slot>
         <!-- tags  -->
         <div v-show="isProfileUrl == false" class="card border-0 mb-3" style="border-radius: 15px;">
             <div class="card-header bg-transparent">

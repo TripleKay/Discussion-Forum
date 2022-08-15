@@ -15,7 +15,10 @@
                                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                                     <ul class="navbar-nav  mb-2 mb-lg-0 d-flex">
                                         <li class="nav-item">
-                                            <Link class="nav-link active" aria-current="page" :href="route('home')">Home</Link>
+                                            <Link class="nav-link" :class="{ 'active': route().current('home') }"  :href="route('home')">Home</Link>
+                                        </li>
+                                        <li class="nav-item">
+                                            <Link class="nav-link" :class="{ 'active': route().current('dashboard') }"  :href="route('dashboard')">Dashboard</Link>
                                         </li>
                                         <li class="nav-item">
                                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -110,5 +113,19 @@ import { Link } from '@inertiajs/inertia-vue3'
     .questionBox:hover{
         background: var(--bs-secondary) !important;
         color: #fff !important;
+    }
+    .nav-link {
+        color: var(--bs-secondary) ;
+        border: 1px solid transparent;
+        border-radius: 30px;
+        margin: 0 2px;
+        transition: .3s linear;
+    }
+    .nav-link.active,
+    .nav-link:hover{
+        color: var(--bs-dark);
+        border: 1px solid var(--bs-secondary);
+        border-radius: 10px;
+        transition: .3s linear;
     }
 </style>

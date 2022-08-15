@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\QuestionController as AdminQuestionController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -8,6 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -47,11 +51,26 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/updatePassword',[ProfileController::class,'updatePassword'])->name('profile.updatePassword');
     Route::get('/profile/userQuestion',[ProfileController::class,'userQuestion'])->name('profile.userQuestion');
     Route::get('profile/savedQuestion',[ProfileController::class,'showSaveQuestion'])->name('showSaveQuestion');
+
+
 });
+
+Route::group(['namespace' => 'Admin','prefix' => 'admin'],function () {
+    //admin dashboard
+    Route::get('/dashboard',[UserController::class,'dashboard'])->name('dashboard');
+    //user
+    Route::get('/userList',[UserController::class,'index'])->name('admin.userList');
+    //question
+    Route::get('/questionList',[AdminQuestionController::class,'questionList'])->name('admin.questionList');
+    //tag
+    Route::get('/tagList',[AdminTagController::class,'tagList'])->name('admin.tagList');
+});
+
 
 
 Route::get('/register',[AuthController::class,'create'])->name('register');
 Route::post('/register',[AuthController::class,'store'])->name('postRegister');
 Route::get('/login',[AuthController::class,'loginPage'])->name('login');
-Route::post('/login',[AuthController::class,'userLogin'])->name('postLogin');
+Route::post('/login',[AuthController::class,'userLogin'])->name('postLo
+gin');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
