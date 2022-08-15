@@ -7,24 +7,34 @@
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="updateProfile">
-                        <img :src="imageSrc" class="rounded-circle" alt="" srcset="" style="width: 100px; height: 100px">
+                        <img :src="'/uploads/users/'+$page.props.auth_user.image" class="rounded-circle" alt="" srcset="" style="width: 100px; height: 100px">
                         <div class="my-3">
                             <label for="" class="form-label">Change Profile Photo</label>
-                            <input type="file" class="form-control" @change="selectImage"  style="border-radius: 15px;">
+                            <input type="file" class="form-control" id="newImage" @change="selectImage"  style="border-radius: 15px;">
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Name</label>
                             <input type="text" class="form-control" v-model="name"  style="border-radius: 15px;">
+                             <small class="text-danger" v-if="errors.name">{{ errors.name }}</small>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Email</label>
                             <input type="email" class="form-control" v-model="email"  style="border-radius: 15px;">
+                             <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                         </div>
-                        <button class="btn btn-primary float-end mt-3">Update Profile</button>
+                        <div class="mt-4 d-flex align-items-center float-end">
+                            <button class="btn btn-primary " :disabled="loading">
+                                <div v-show="loading" class="spinner-border spinner-border-sm text-light" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span v-show="loading">wait...</span>
+                                <span v-show="!loading">Update Profile</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
-            
+
         </Master>
     </div>
 </template>
@@ -40,19 +50,26 @@ import Master from "../Layouts/Master.vue"
             return {
                 name: '',
                 email: '',
-                imageSrc: '/uploads/users/'+this.$page.props.auth_user.image,
                 newImage: '',
+                loading: false,
             }
+        },
+        props: {
+            errors: Object
         },
         methods: {
             selectImage (e) {
                 this.newImage = e.target.files[0];
             },
             updateProfile(){
+                this.loading = true;
                 var data = new FormData;
                 data.append('name',this.name);
                 data.append('email',this.email);
                 data.append('newImage',this.newImage);
+                this.$inertia.post(this.route('profile.update'), data ,{
+                    onFinish: () => this.loading = false
+                });
             }
         },
         created(){

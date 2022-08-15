@@ -26,7 +26,15 @@
                             <input type="password" class="form-control" v-model="confirmPassword" style="border-radius: 15px;">
                             <small class="text-danger" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</small>
                         </div>
-                        <button class="btn btn-primary float-end mt-3">Update Password</button>
+                        <div class="mt-4 d-flex align-items-center float-end">
+                            <button class="btn btn-primary " :disabled="loading">
+                                <div v-show="loading" class="spinner-border spinner-border-sm text-light" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span v-show="loading">wait...</span>
+                                <span v-show="!loading">Update Password</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

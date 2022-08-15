@@ -8,6 +8,7 @@ use App\Models\Question;
 use App\Models\QuestionSave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\Question as QuestionTrait;
 
@@ -18,6 +19,41 @@ class ProfileController extends Controller
     //edit profile
     public function editProfile(){
         return Inertia::render('Profile/EditProfile');
+    }
+
+    //update profile
+    public function updateProfile(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+
+        $updateData = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        if($request->hasFile('newImage')){
+            $newFile = $request->file('newImage');
+            $newFileName = uniqid().'-'.$newFile->getClientOriginalName();
+
+            //get old file
+            $oldFileName = User::where('id',auth()->user()->id)->value('image');
+            if(!empty($oldFileName)){
+                if(File::exists(public_path().'/uploads/users/'.$oldFileName)){
+                    File::delete(public_path().'/uploads/users/'.$oldFileName);
+                }
+                $newFile->move(public_path().'/uploads/users/',$newFileName);
+                $updateData['image'] = $newFileName;
+            }else{
+                $newFile->move(public_path().'/uploads/users/',$newFileName);
+                $updateData['image'] = $newFileName;
+            }
+        }
+
+        User::where('id',Auth::user()->id)->update($updateData);
+        return redirect()->back()->with(['message' => 'Your profile updated successfully']);
+
     }
 
     //edit password
