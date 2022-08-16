@@ -5,7 +5,7 @@
         <!-- ------------content---------------  -->
         <div class="container-fluid min-vh-100 bg-light" style="">
             <div class="container">
-                <div class="row py-5">
+                <div class="py-5 row">
                     <!-- ------------tags---------------  -->
                     <div class="col-12 col-md-3">
                         <AdminSideBar></AdminSideBar>

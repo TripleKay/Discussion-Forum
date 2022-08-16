@@ -33,6 +33,7 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <Toast v-if="toast.status == true" :icon="'success'" :title="toast.title"></Toast>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -59,18 +60,24 @@
 </template>
 
 <script>
-import AdminMaster from "./Layouts/AdminMaster.vue"
-import { Link } from '@inertiajs/inertia-vue3'
+import AdminMaster from "./Layouts/AdminMaster.vue";
+import { Link } from '@inertiajs/inertia-vue3';
+import Swal from 'sweetalert2';
+import Toast from '../Components/SuccessAlert.vue';
 
 export default {
         name: 'TagList',
         components: {
-            AdminMaster,Link
+            AdminMaster,Link,Toast
         },
         data () {
             return {
                 tagLists: '',
                 name: '',
+                toast: {
+                    status: false,
+                    title: 'Tag Created Successfully',
+                },
             }
         },
         methods: {
@@ -85,15 +92,37 @@ export default {
                             this.hideModal();
                             this.tagLists.push(response.data.tag);
                             this.name = '';
+                            this.toast.status = true;
                         }
                     })
             },
             deleteTag(index,id){
-                 axios.get(this.route('admin.deleteTag',id)).then((response) => {
-                     if(response.data.success){
-                         this.tagLists.splice(index,1);
-                        }
-                })
+                //alert
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want delete this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        //delete tag
+                         axios.get(this.route('admin.deleteTag',id)).then((response) => {
+                            if(response.data.success){
+                                this.tagLists.splice(index,1);
+                                }
+                        })
+                        //alert
+                        Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                        )
+                    }
+                    })
+
             }
         },
         created(){

@@ -49,7 +49,7 @@ class QuestionController extends Controller
         $currentQuestion = Question::find($createdQuestion->id);
         $currentQuestion->tag()->attach($tagsArr);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with(['message'=>'Question created successfully']);
     }
 
     //redirect edit question page

@@ -48,7 +48,7 @@ class PageController extends Controller
             'question_id' => $id,
         ]);
         return response()->json([
-            'success' => 'like success',
+            'success' => true,
         ]);
     }
 
@@ -56,7 +56,7 @@ class PageController extends Controller
     public function disLike($id){
         QuestionLike::where('question_id',$id)->where('user_id',Auth::user()->id)->delete();
         return response()->json([
-            'success' => 'dislike success',
+            'success' => true,
         ]);
     }
 
@@ -65,6 +65,7 @@ class PageController extends Controller
         $question = Question::where('slug',$slug)->with(['user','comment.user','questionSave','tag'])->first();
         $question->isLike = $this->getLikeDetail($question->id)['isLike'];
         $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
+        $question->isSaved = $this->checkSaveQuestion($question->id);
         return Inertia::render('Question/QuestionDetail')->with(['question' => $question]);
     }
 
