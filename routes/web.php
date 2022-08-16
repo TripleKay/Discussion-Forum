@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function () {
     Route::get('/questionList',[AdminQuestionController::class,'questionList'])->name('admin.questionList');
     //tag
     Route::get('/tagList',[AdminTagController::class,'tagList'])->name('admin.tagList');
+    Route::post('/createTag',[AdminTagController::class,'createTag'])->name('admin.createTag');
+    Route::get('/deleteTag/{id}',[AdminTagController::class,'deleteTag'])->name('admin.deleteTag');
 });
 
 
