@@ -1,7 +1,7 @@
 <template>
     <div>
          <!-- ------------questions content box---------------  -->
-            <div v-for="(que,index) in questions" :key="que.id"  class="mb-3 border-0 card" style="border-radius: 15px;">
+            <div v-for="(que,index) in questions" :key="que.id"  class="mb-3 card questionCard" style="border-radius: 15px;">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <!-- ------------user---------------  -->
@@ -15,13 +15,13 @@
                         <!-- ------------menu---------------  -->
                         <div class="me-3 d-flex align-items-center">
                             <!-- ------------save---------------  -->
-                            <i v-show="!que.isSaved" @click="saveQuestion(que.id,index)" class="py-2 text-center far fa-heart rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
-                            <i v-show="que.isSaved" @click="unSaveQuestion(que.id,index)" class="py-2 text-center fas fa-heart rounded-circle bg-light text-danger" style="width: 30px; height: 30px"></i>
+                            <i v-show="!que.isSaved" @click="saveQuestion(que.id,index)" class="py-2 text-center iconBtn far fa-heart rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
+                            <i v-show="que.isSaved" @click="unSaveQuestion(que.id,index)" class="py-2 text-center iconBtn fas fa-heart rounded-circle bg-light text-danger" style="width: 30px; height: 30px"></i>
                             <!-- ------------drop down---------------  -->
                             <div class="btn-group">
-                                <i v-if="isOwned(que.user_id) == true" class="py-2 text-center fas fa-ellipsis-v rounded-circle bg-light text-secondary ms-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width: 30px; height: 30px"></i>
+                                <i v-if="isOwned(que.user_id) == true" class="py-2 text-center iconBtn fas fa-ellipsis-v rounded-circle bg-light text-secondary ms-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="width: 30px; height: 30px"></i>
                                 <ul class="dropdown-menu">
-                                    <li><button class="dropdown-item"><i class="fas fa-edit me-2"></i>Edit Question</button></li>
+                                    <li><Link :href="route('question.edit',que.slug)" class="dropdown-item"><i class="fas fa-edit me-2"></i>Edit Question</Link></li>
                                     <li><button @click="deleteQuestion(que.id,index)" class="dropdown-item"><i class="fas fa-trash me-2"></i>Delete Question</button></li>
                                     <li v-show="que.is_solved == 'false'"><button @click="makeSolved(que.id,index)" class="dropdown-item"><i class="far fa-check-circle me-2"></i>Question Is Solved</button></li>
                                 </ul>
@@ -192,12 +192,39 @@ import Swal from 'sweetalert2';
 </script>
 
 <style  scoped>
+    .questionCard{
+        border: 1px solid transparent !important;
+        transform: scale(1);
+        transition: .3s linear;
+    }
+    .questionCard:hover{
+        border: 1px solid var(--bs-secondary) !important;
+        transform: scale(1.02);
+        transition: .3s linear;
+    }
+    .like {
+        cursor: pointer !important;
+        transition: .3s linear;
+    }
     .like:hover,
     .like:focus {
+        background: var(--bs-primary) !important;
+        color: var(--bs-white) !important;
         transform: scale(1.2) rotate(-30deg);
         transition: .3s linear;
     }
     .dropdown-toggle::after{
         display: none;
+    }
+    .iconBtn {
+        cursor: pointer !important;
+        transition: .3s linear;
+    }
+    .iconBtn:hover,
+    .iconBtn:active,
+    .iconBtn:focus{
+        background: var(--bs-dark) !important;
+        color: var(--bs-white) !important;
+        transition: .3s linear;
     }
 </style>

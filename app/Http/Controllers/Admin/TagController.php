@@ -13,7 +13,7 @@ class TagController extends Controller
     //index
     public function tagList(){
         $data = Tag::get();
-        return Inertia::render('Admin/TagList')->with(['data'=>$data]);
+        return Inertia::render('Admin/Tag/TagList')->with(['data'=>$data]);
     }
 
     //create tag

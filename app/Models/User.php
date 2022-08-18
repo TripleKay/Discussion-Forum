@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Question;
+use App\Models\QuestionComment;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -42,4 +44,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //questions
+    public function question(){
+        return $this->hasMany(Question::class,'user_id','id');
+    }
+
+    //comment
+    public function comment(){
+        return $this->hasMany(QuestionComment::class,'user_id','id');
+    }
 }

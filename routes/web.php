@@ -33,8 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::post('question/create',[QuestionController::class,'storeQuestion'])->name('question.store');
     Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
     Route::get('question/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.delete');
-    Route::get('question/edit',[QuestionController::class,'editQuestion'])->name('question.edit');
-    Route::post('question/edit',[QuestionController::class,'updateQuestion'])->name('question.update');
+    Route::get('question/edit/{slug}',[QuestionController::class,'editQuestion'])->name('question.edit');
+    Route::post('question/edit/{slug}',[QuestionController::class,'updateQuestion'])->name('question.update');
 
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
@@ -59,13 +59,13 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function () {
     //admin dashboard
     Route::get('/dashboard',[UserController::class,'dashboard'])->name('dashboard');
     //user
-    Route::get('/userList',[UserController::class,'index'])->name('admin.userList');
+    Route::get('/user/list',[UserController::class,'index'])->name('admin.userList');
     //question
-    Route::get('/questionList',[AdminQuestionController::class,'questionList'])->name('admin.questionList');
+    Route::get('/question/list',[AdminQuestionController::class,'questionList'])->name('admin.questionList');
     //tag
-    Route::get('/tagList',[AdminTagController::class,'tagList'])->name('admin.tagList');
-    Route::post('/createTag',[AdminTagController::class,'createTag'])->name('admin.createTag');
-    Route::get('/deleteTag/{id}',[AdminTagController::class,'deleteTag'])->name('admin.deleteTag');
+    Route::get('/tag/list',[AdminTagController::class,'tagList'])->name('admin.tagList');
+    Route::post('tag/create',[AdminTagController::class,'createTag'])->name('admin.createTag');
+    Route::get('tag/delete/{id}',[AdminTagController::class,'deleteTag'])->name('admin.deleteTag');
 });
 
 

@@ -25,7 +25,6 @@ import Master from "./Layouts/Master.vue";
 import Question from "./Components/Question.vue";
 import Pagination from "./Components/Pagination.vue";
 import { Link } from '@inertiajs/inertia-vue3';
-import Toast from './Components/SuccessAlert.vue'
     export default {
         name: 'Home',
         data () {
@@ -35,7 +34,7 @@ import Toast from './Components/SuccessAlert.vue'
             }
         },
         components: {
-            Master,Link,Question,Pagination,Toast
+            Master,Link,Question,Pagination
         },
         methods: {
 

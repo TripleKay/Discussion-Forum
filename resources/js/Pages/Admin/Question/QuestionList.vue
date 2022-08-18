@@ -35,7 +35,7 @@
                                     <td>{{ questionList.description.substring(0,100) }}.....</td>
                                     <td>{{ questionList.comment.length }} comments</td>
                                     <td class="text-nowrap">
-                                        <a href="" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></a>
+                                        <Link :href="route('question.detail',questionList.slug)" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></Link>
                                         <a href="" class="btn btn-outline-success btn-sm me-2"><i class="fas fa-edit"></i></a>
                                         <a href="" class="btn btn-outline-danger btn-sm me-2"><i class="fas fa-trash"></i></a>
                                     </td>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import AdminMaster from "./Layouts/AdminMaster.vue"
+import AdminMaster from "../Layouts/AdminMaster.vue"
 import { Link } from '@inertiajs/inertia-vue3'
 
     export default {

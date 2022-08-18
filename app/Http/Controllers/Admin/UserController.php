@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -15,9 +16,9 @@ class UserController extends Controller
     }
 
     public function index(){
-        $data = User::get();
-        return Inertia::render('Admin/UserList')->with(['data'=>$data]);
+    $data = User::with('question','comment')->get();
+        return Inertia::render('Admin/User/UserList')->with(['data'=>$data]);
     }
 
-    
+
 }

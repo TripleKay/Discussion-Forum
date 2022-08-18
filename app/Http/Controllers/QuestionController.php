@@ -53,11 +53,45 @@ class QuestionController extends Controller
     }
 
     //redirect edit question page
-    public function editQuestion($id){
-        $question = Question::where('id',$id)->with(['tag'])->first();
+    public function editQuestion($slug){
+        $question = Question::where('slug',$slug)->with(['tag'])->first();
         return Inertia::render('Question/QuestionEdit')->with(['question' => $question]);
     }
 
+    //update question page
+    public function updateQuestion($slug,Request $request){
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'tags' => 'required',
+        ]);
+
+        $title = $request->title;
+        $description = $request->description;
+        $tagsArr = explode(',',$request->tags);
+
+        $question = Question::where('slug',$slug)->first();
+        //to delete que_tag relations
+        $question->tag()->detach();
+
+        $updateData = [
+            'title' => $title,
+            'description' => $description,
+        ];
+
+        // slug depends on title changes
+        if($title != $question->title){
+            $updateData['slug'] = Str::slug($title).'-'.uniqid();
+        }
+
+        $question->update($updateData);
+
+        //to add que_tag relations
+        $question->tag()->attach($tagsArr);
+
+        return redirect()->route('home')->with(['message'=>'Question updated successfully']);
+    }
+    
     //delete Question
     public function deleteQuestion($id){
         Question::where('id',$id)->delete();

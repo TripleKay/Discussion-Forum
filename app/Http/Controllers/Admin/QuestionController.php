@@ -12,6 +12,6 @@ class QuestionController extends Controller
     //index
     public function questionList(){
         $data = Question::with('user','tag','comment')->get();
-        return Inertia::render('Admin/QuestionList')->with(['data'=>$data]);
+        return Inertia::render('Admin/Question/QuestionList')->with(['data'=>$data]);
     }
 }

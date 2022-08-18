@@ -33,7 +33,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <Toast v-if="toast.status == true" :icon="'success'" :title="toast.title"></Toast>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -60,24 +59,19 @@
 </template>
 
 <script>
-import AdminMaster from "./Layouts/AdminMaster.vue";
+import AdminMaster from "../Layouts/AdminMaster.vue";
 import { Link } from '@inertiajs/inertia-vue3';
-import Swal from 'sweetalert2';
-import Toast from '../Components/SuccessAlert.vue';
 
 export default {
         name: 'TagList',
         components: {
-            AdminMaster,Link,Toast
+            AdminMaster,Link
         },
         data () {
             return {
                 tagLists: '',
                 name: '',
-                toast: {
-                    status: false,
-                    title: 'Tag Created Successfully',
-                },
+
             }
         },
         methods: {
@@ -92,7 +86,10 @@ export default {
                             this.hideModal();
                             this.tagLists.push(response.data.tag);
                             this.name = '';
-                            this.toast.status = true;
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Tag created successfully',
+                            });
                         }
                     })
             },
