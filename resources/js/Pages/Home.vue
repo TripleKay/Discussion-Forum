@@ -1,7 +1,6 @@
 <template>
     <div>
         <Master>
-            <Toast v-if="this.$page.props.flash.message != null" :icon="'success'" :title="this.$page.props.flash.message"></Toast>
 
             <!-- ------------new questions create box---------------  -->
             <div class="mb-3 border-0 card" style="border-radius: 15px">

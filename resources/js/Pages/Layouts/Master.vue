@@ -2,6 +2,8 @@
     <div>
         <!-- ------------nav bar----------------  -->
         <Nav></Nav>
+            <Toast v-if="this.$page.props.flash.message != null" :icon="'success'" :title="this.$page.props.flash.message"></Toast>
+
         <!-- ------------content---------------  -->
         <div class="container-fluid min-vh-100 bg-light" style="">
             <div class="container">
@@ -23,10 +25,12 @@
 <script>
 import Nav from "./Nav.vue";
 import SideBar from "./SideBar.vue";
+import Toast from '../Components/SuccessAlert.vue'
+
     export default {
         name: 'Master',
         components: {
-            Nav,SideBar
+            Nav,SideBar,Toast
         }
     }
 </script>

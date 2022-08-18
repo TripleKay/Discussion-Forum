@@ -6,8 +6,8 @@
                     <h5 class="mb-0 py-2">Change Password</h5>
                 </div>
                 <div class="card-body">
-                    <div v-if="$page.props.flash.message" class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ $page.props.flash.message }}
+                    <div v-if="$page.props.flash.errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ $page.props.flash.errorMessage }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <form @submit.prevent="updatePassword">

@@ -1,15 +1,15 @@
 <template>
     <div>
         <!-- admin side bar  -->
-        <div class="card border-0 mb-3" style="border-radius: 15px;">
-            <div class="card-header bg-transparent">
-                <h5 class="mb-0 py-2">Admin Dashboard</h5>
+        <div class="mb-3 border-0 card" style="border-radius: 15px;">
+            <div class="bg-transparent card-header">
+                <h5 class="py-2 mb-0">Admin Dashboard</h5>
             </div>
             <div class="card-body">
-                <div class="">
-                    <Link :href="route('admin.userList')" :class="{ 'active': route().current('admin.userList') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-users me-2"></i>User Lists</Link>
-                    <Link :href="route('admin.questionList')" :class="{ 'active': route().current('admin.questionList') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-lock me-2"></i>Questions</Link>
-                    <Link :href="route('admin.tagList')" :class="{ 'active': route().current('admin.tagList') }" class="btn w-100 text-start mb-2" style="border: .5px solid #00000010; border-radius: 15px;">
+                <div class="d-flex">
+                    <Link :href="route('admin.userList')" :class="{ 'active': route().current('admin.userList') }" class="mb-2 btn me-3" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-users me-2"></i>User Lists</Link>
+                    <Link :href="route('admin.questionList')" :class="{ 'active': route().current('admin.questionList') }" class="mb-2 btn me-3" style="border: .5px solid #00000010; border-radius: 15px;"><i class="fas fa-lock me-2"></i>Questions</Link>
+                    <Link :href="route('admin.tagList')" :class="{ 'active': route().current('admin.tagList') }" class="mb-2 btn me-3" style="border: .5px solid #00000010; border-radius: 15px;">
                         <i class="fas fa-question-circle me-2"></i>Tags</Link>
                 </div>
             </div>

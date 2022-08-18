@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="my-4"><i class="py-2 text-center far fa-heart rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
+                    <div class="my-4">
                         <!-- ------------title and status---------------  -->
                         <div class="mb-2 d-flex align-items-center">
                             <div class="mb-0 h6 me-2">

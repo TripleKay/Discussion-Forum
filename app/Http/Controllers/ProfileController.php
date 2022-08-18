@@ -81,12 +81,12 @@ class ProfileController extends Controller
                 User::where('id',auth()->user()->id)->update([
                     'password' => Hash::make($newPassword),
                 ]);
-                return back()->with(['success' => 'Your password changed successfully']);
+                return redirect()->back()->with(['message' => 'Your password changed successfully']);
             }else{
-                return back()->with(['message' => 'confirm password and new password must be same!']);
+                return back()->with(['errorMessage' => 'confirm password and new password must be same!']);
             }
         }else{
-            return back()->with(['message' => 'Your Old Password does not match']);
+            return back()->with(['errorMessage' => 'Your Old Password does not match']);
         }
     }
 

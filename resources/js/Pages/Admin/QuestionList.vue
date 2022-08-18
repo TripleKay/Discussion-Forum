@@ -2,9 +2,9 @@
     <div>
         <AdminMaster>
             <!-- ------------content---------------  -->
-            <div class="card border-0 bg-white" style="border-radius: 15px">
-                    <div class="card-header  bg-transparent d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 py-2">Question Lists -<div class="badge bg-secondary ms-2">{{ questionLists.length }}</div></h5>
+            <div class="bg-white border-0 card" style="border-radius: 15px">
+                    <div class="bg-transparent card-header d-flex justify-content-between align-items-center">
+                        <h5 class="py-2 mb-0">Question Lists -<div class="badge bg-secondary ms-2">{{ questionLists.length }}</div></h5>
 
                     </div>
                     <div class="card-body">
@@ -15,17 +15,29 @@
                                     <th>Author</th>
                                     <th scope="col">Name</th>
                                     <th>Description</th>
+                                    <th>Comment</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(questionList,index) in questionLists" :key="index">
                                     <td>{{ questionList.id }}</td>
-                                    <td>{{ questionList.user.name }}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <img :src="'/uploads/users/'+questionList.user.image" class="rounded-circle" alt="" srcset="" style="width: 35px ; height: 35px;">
+                                            <div class="ms-2">
+                                                <h6 class="mb-0 text-nowrap">{{ questionList.user.name}}</h6>
+                                                <span class="text-black-50">{{ questionList.time }}</span>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{ questionList.title.substring(0,80) }}</td>
                                     <td>{{ questionList.description.substring(0,100) }}.....</td>
-                                    <td>
-                                        <a href="" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                    <td>{{ questionList.comment.length }} comments</td>
+                                    <td class="text-nowrap">
+                                        <a href="" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></a>
+                                        <a href="" class="btn btn-outline-success btn-sm me-2"><i class="fas fa-edit"></i></a>
+                                        <a href="" class="btn btn-outline-danger btn-sm me-2"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
 

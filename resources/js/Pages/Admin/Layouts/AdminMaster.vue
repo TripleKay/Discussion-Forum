@@ -7,11 +7,11 @@
             <div class="container">
                 <div class="py-5 row">
                     <!-- ------------tags---------------  -->
-                    <div class="col-12 col-md-3">
+                    <div class="col-12">
                         <AdminSideBar></AdminSideBar>
                     </div>
                     <!-- ------------content---------------  -->
-                    <div class="col-12 col-md-9">
+                    <div class="col-12">
                         <slot></slot>
                     </div>
                 </div>
