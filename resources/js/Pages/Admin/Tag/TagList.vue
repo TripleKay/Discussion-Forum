@@ -38,6 +38,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Question</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -45,6 +46,7 @@
                                 <tr v-for="(tagList,index) in tagLists" :key="index">
                                     <td>{{ tagList.id }}</td>
                                     <td>{{ tagList.name }}</td>
+                                    <td>{{ tagList.question_count }}</td>
                                     <td>
                                         <button @click="deleteTag(index,tagList.id)" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
                                     </td>

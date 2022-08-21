@@ -56,14 +56,17 @@
                             </form>
                         </div>
                         <!-- comment box  -->
-                        <div v-for="comment in question.comment" :key="comment.id" class="mb-3 d-flex">
+                        <div v-for="(comment,index) in question.comment" :key="comment.id" class="mb-3 d-flex">
                             <div class="d-flex">
                                 <img :src="imgPath+comment.user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                             </div>
                             <div class="p-3 ms-2 bg-light w-100" style="border-radius: 15px">
-                                <div class="mb-2 d-flex align-items-center">
-                                    <h6 class="mb-0">{{ comment.user.name }}</h6>
-                                    <span class="text-black-50 ms-2">{{ comment.time }}</span>
+                                <div class="mb-2 d-flex justify-content-between align-items-center">
+                                    <div class=" d-flex align-items-center">
+                                        <h6 class="mb-0">{{ comment.user.name }}</h6>
+                                        <span class="text-black-50 ms-2">{{ comment.time }}</span>
+                                    </div>
+                                    <button v-if="this.$page.props.auth_user.id == comment.user.id" @click="deleteComment(comment.id,index)" class="m-0 bg-white btn btn-sm rounded-circle"><i class="fas fa-times"></i></button>
                                 </div>
                                 <p>{{ comment.comment }}</p>
                             </div>
@@ -104,6 +107,31 @@ import Swal from 'sweetalert2';
                             this.comment = '';
                         }
                     })
+            },
+
+            deleteComment(id,index){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to delete comment!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.get(this.route('question.deleteComment',id)).then((response) => {
+                        if(response.data.success){
+                            this.question.comment.splice(index,1);
+                            }
+                        });
+                        Swal.fire(
+                            'Deleted!',
+                            'Your Comment has been deleted.',
+                            'success'
+                        );
+                    }
+                })
             },
             like (id) {
                 if(this.question.isLike != true){

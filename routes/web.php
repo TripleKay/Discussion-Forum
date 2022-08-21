@@ -38,11 +38,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
-    Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');
     Route::post('question/makeSolved',[QuestionController::class,'makeSolved'])->name('question.makeSolved');
     Route::post('question/save',[QuestionController::class,'saveQuestion'])->name('question.save');
     Route::post('question/unsave',[QuestionController::class,'unSaveQuestion'])->name('question.unSave');
     Route::post('question/search',[QuestionController::class,'searchQuestion'])->name('question.search');
+    Route::post('question/comment',[PageController::class,'createComment'])->name('question.createComment');
+    Route::get('question/comment/delete/{id}',[PageController::class,'deleteComment'])->name('question.deleteComment');
 
     //profile
     Route::get('/profile/edit',[ProfileController::class,'editProfile'])->name('profile.edit');

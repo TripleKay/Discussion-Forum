@@ -4,8 +4,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6 offset-md-3">
-                         <div class="card border-0 shadow"  style="border-radius: 15px">
-                            <div class="card-header bg-transparent">
+                         <div class="border-0 shadow card"  style="border-radius: 15px">
+                            <div class="bg-transparent card-header">
                                 <h4 class="my-2">Login</h4>
                             </div>
                             <div class="card-body">
@@ -16,12 +16,12 @@
                                 <form @submit.prevent="login">
                                     <div class="mb-3">
                                         <label for="" class="form-label">Email</label>
-                                        <input type="email" :class="[ 'form-control', errors.email ? 'border border-danger' : '' ]" id="email" v-model="email" style="border-radius: 15px;">
+                                        <input type="email" :class="[ 'form-control', errors.email ? 'border border-danger' : '' ]" id="email" v-model="email" placeholder="enter your email" style="border-radius: 15px;">
                                         <small class="text-danger" v-if="errors.email">{{ errors.email }}</small>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label">Password</label>
-                                        <input type="password" :class="[ 'form-control', errors.password ? 'border border-danger' : '' ]" id="password" v-model="password" style="border-radius: 15px;">
+                                        <input type="password" :class="[ 'form-control', errors.password ? 'border border-danger' : '' ]" id="password" v-model="password" placeholder="enter your password" style="border-radius: 15px;">
                                         <small class="text-danger" v-if="errors.password">{{ errors.password }}</small>
                                     </div>
                                     <div class="mt-4 d-flex align-items-center">
@@ -76,6 +76,6 @@ import { Link } from '@inertiajs/inertia-vue3';
     }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 
 </style>

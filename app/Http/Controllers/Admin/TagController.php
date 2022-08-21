@@ -6,13 +6,14 @@ use App\Models\Tag;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
     //index
     public function tagList(){
-        $data = Tag::get();
+        $data = Tag::withCount('question')->orderBy('question_count','DESC')->get();
         return Inertia::render('Admin/Tag/TagList')->with(['data'=>$data]);
     }
 

@@ -91,7 +91,7 @@ class QuestionController extends Controller
 
         return redirect()->route('home')->with(['message'=>'Question updated successfully']);
     }
-    
+
     //delete Question
     public function deleteQuestion($id){
         Question::where('id',$id)->delete();

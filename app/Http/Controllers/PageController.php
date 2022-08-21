@@ -84,6 +84,14 @@ class PageController extends Controller
         ]);
     }
 
+    //delete comment
+    public function deleteComment($id){
+        QuestionComment::where('id',$id)->delete();
+        return response()->json([
+            'success'=> true,
+        ]);
+    }
+
     //save question check on user
     private function checkSaveQuestion($questionId){
         $saveQuestion = QuestionSave::where('question_id',$questionId)->where('user_id',auth()->user()->id)->first();

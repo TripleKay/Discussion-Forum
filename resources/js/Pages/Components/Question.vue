@@ -35,7 +35,7 @@
                                 <span v-if="que.is_solved == 'true'" class="py-0 btn btn-light text-success btn-sm">Is Solved !</span>
                                 <span v-else class="py-0 btn btn-light text-danger btn-sm">Need Solved ?</span>
                             </div>
-                            <h4 class="mb-0">{{ que.title }}</h4>
+                            <h4 class="mb-0 underline-hover-effect">{{ que.title }}</h4>
                         </div>
                         <!-- ------------description---------------  -->
                         <p class="text-black-50">{{ que.description.substring(0,280) }}.....</p>
@@ -50,7 +50,7 @@
                             <!-- ------------likes---------------  -->
                             <div class="me-3 d-flex align-items-center">
                                 <i v-show="!que.isLike" @click="like(que.id,index)" class="py-2 text-center far fa-thumbs-up rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
-                                <i v-show="que.isLike" @click="like(que.id,index)" class="py-2 text-center fas fa-thumbs-up rounded-circle bg-light text-primary like" style="width: 30px; height: 30px"></i>
+                                <i v-show="que.isLike" @click="like(que.id,index)" class="py-2 text-center text-primary fas fa-thumbs-up rounded-circle bg-light like" style="width: 30px; height: 30px"></i>
                                 <span class="mb-0 ms-1 text-dark">{{ que.likeCount }}</span>
                             </div>
                             <!-- ------------comments---------------  -->
@@ -197,11 +197,37 @@ import Swal from 'sweetalert2';
         transform: scale(1);
         transition: .3s linear;
     }
-    .questionCard:hover{
+    /* .questionCard:hover{
         border: 1px solid var(--bs-secondary) !important;
         transform: scale(1.02);
         transition: .3s linear;
-    }
+    } */
+    .questionCard .underline-hover-effect {
+  text-decoration: none;
+  color: inherit;
+}
+
+.underline-hover-effect {
+  display: inline-block;
+  padding-bottom: 0.25rem; /* defines the space between text and underline */
+  position: relative;
+}
+
+.underline-hover-effect::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--bs-primary);
+  transition: width 0.25s ease-out;
+}
+.underline-hover-effect:hover::before {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
     .like {
         cursor: pointer !important;
         transition: .3s linear;
