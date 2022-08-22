@@ -13,6 +13,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
+                                    <th>Role</th>
                                     <th>Questions</th>
                                     <th>Comment</th>
                                     <th scope="col">Action</th>
@@ -32,10 +33,13 @@
                                         </div>
                                     </td>
                                     <td>{{ userList.email}}</td>
+                                    <td><div class="fw-bold" :class="userList.role == 'admin' ? 'text-danger' : '' ">{{ userList.role}}</div></td>
+
                                     <td>{{ userList.question.length }}</td>
                                     <td>{{ userList.comment.length }}</td>
                                     <td>
-                                        <button  @click="deleteUser(index,userList.id)" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                        <button v-show="userList.id != $page.props.auth_user.id"  @click="deleteUser(index,userList.id)" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                        <Link :href="route('admin.editUser',userList.id)" class="btn btn-outline-success btn-sm ms-2"><i class="fas fa-edit"></i></Link>
                                     </td>
                                 </tr>
 

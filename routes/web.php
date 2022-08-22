@@ -63,6 +63,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCh
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
     //user
     Route::get('/user/list',[UserController::class,'index'])->name('admin.userList');
+    Route::get('/user/edit/{id}',[UserController::class,'editUser'])->name('admin.editUser');
+    Route::post('/user/edit/{id}',[UserController::class,'updateUser'])->name('admin.updateUser');
     Route::get('/user/delete/{id}',[UserController::class,'deleteUser'])->name('admin.deleteUser');
     //question
     Route::get('/question/list',[AdminQuestionController::class,'questionList'])->name('admin.questionList');

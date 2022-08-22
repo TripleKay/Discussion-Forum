@@ -2,6 +2,9 @@
     <div>
         <!-- ------------nav bar----------------  -->
         <Nav></Nav>
+
+        <Toast v-if="this.$page.props.flash.message != null" :icon="'success'" :title="this.$page.props.flash.message"></Toast>
+
         <!-- ------------content---------------  -->
         <div class="container-fluid min-vh-100 bg-light" style="">
             <div class="container">
@@ -23,12 +26,12 @@
 <script>
 import Nav from "../../Layouts/Nav.vue";
 import AdminSideBar from "../Layouts/AdminSideBar.vue";
-import { Link } from '@inertiajs/inertia-vue3'
-
+import { Link } from '@inertiajs/inertia-vue3';
+import Toast from '../../Components/SuccessAlert.vue'
     export default {
         name: 'AdminMaster',
         components: {
-            Nav,Link,AdminSideBar
+            Nav,Link,AdminSideBar,Toast
         },
     }
 </script>

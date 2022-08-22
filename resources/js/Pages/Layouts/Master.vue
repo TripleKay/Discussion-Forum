@@ -7,7 +7,7 @@
         <!-- ------------content---------------  -->
         <div class="container-fluid min-vh-100 bg-light" style="">
             <div class="container">
-                <div class="row py-5">
+                <div class="py-5 row">
                     <!-- ------------tags---------------  -->
                     <div class="col-12 col-md-4">
                         <SideBar></SideBar>
@@ -25,7 +25,7 @@
 <script>
 import Nav from "./Nav.vue";
 import SideBar from "./SideBar.vue";
-import Toast from '../Components/SuccessAlert.vue'
+import Toast from '../Components/SuccessAlert.vue';
 
     export default {
         name: 'Master',
