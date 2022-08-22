@@ -28,7 +28,7 @@
                                             <div class="ms-2">
                                                 <h6 class="mb-0 text-nowrap">{{ userList.name}}</h6>
                                                 <span v-if="$page.props.auth_user.id == userList.id" class="text-success fw-bold">You</span>
-                                                <span v-else class="text-black-50">User</span>
+                                                <span v-else class="text-black-50">{{ userList.role }}</span>
                                             </div>
                                         </div>
                                     </td>

@@ -2,7 +2,7 @@
     <div>
         <Master>
             <Question :questions="questions.data"></Question>
-            <Pagination :links="questions.links" />
+            <Pagination v-if="questions.per_page < questions.links.length" :links="questions.links" />
         </Master>
     </div>
 </template>
