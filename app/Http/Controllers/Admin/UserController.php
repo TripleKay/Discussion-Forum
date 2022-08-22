@@ -10,14 +10,17 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    //
-    public function dashboard(){
-        return Inertia::render('Admin/Dashboard');
-    }
 
     public function index(){
     $data = User::with('question','comment')->get();
         return Inertia::render('Admin/User/UserList')->with(['data'=>$data]);
+    }
+
+    public function deleteUser($id){
+        User::where('id',$id)->delete();
+        return response()->json(
+            ['success'=>true]
+        );
     }
 
 

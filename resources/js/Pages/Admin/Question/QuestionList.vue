@@ -35,9 +35,8 @@
                                     <td>{{ questionList.description.substring(0,100) }}.....</td>
                                     <td>{{ questionList.comment.length }} comments</td>
                                     <td class="text-nowrap">
-                                        <Link :href="route('question.detail',questionList.slug)" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></Link>
-                                        <a href="" class="btn btn-outline-success btn-sm me-2"><i class="fas fa-edit"></i></a>
-                                        <a href="" class="btn btn-outline-danger btn-sm me-2"><i class="fas fa-trash"></i></a>
+                                        <Link :href="route('admin.showQuestion',questionList.slug)" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></Link>
+                                        <button @click="deleteQuestion(index,questionList.id)" class="btn btn-outline-danger btn-sm me-2"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
 
@@ -61,6 +60,37 @@ import { Link } from '@inertiajs/inertia-vue3'
         data () {
             return {
                 questionLists: '',
+            }
+        },
+        methods: {
+            deleteQuestion(index,id){
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want delete question!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        //delete tag
+                         axios.get(this.route('admin.deleteQuestion',id)).then((response) => {
+                            if(response.data.success){
+                                //alert
+                                Swal.fire(
+                                'Deleted!',
+                                'Question has been deleted.',
+                                'success'
+                                )
+                                this.questionLists.splice(index,1);
+                                }
+                        })
+
+                    }
+                    })
+
             }
         },
         created(){

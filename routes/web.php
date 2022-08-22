@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -56,13 +58,16 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::group(['namespace' => 'Admin','prefix' => 'admin'],function () {
+Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware'=> [AdminCheckMiddleware::class]],function () {
     //admin dashboard
-    Route::get('/dashboard',[UserController::class,'dashboard'])->name('dashboard');
+    Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
     //user
     Route::get('/user/list',[UserController::class,'index'])->name('admin.userList');
+    Route::get('/user/delete/{id}',[UserController::class,'deleteUser'])->name('admin.deleteUser');
     //question
     Route::get('/question/list',[AdminQuestionController::class,'questionList'])->name('admin.questionList');
+    Route::get('/question/{slug}',[AdminQuestionController::class,'showQuestion'])->name('admin.showQuestion');
+    Route::get('/question/delete/{id}',[AdminQuestionController::class,'deleteQuestion'])->name('admin.deleteQuestion');
     //tag
     Route::get('/tag/list',[AdminTagController::class,'tagList'])->name('admin.tagList');
     Route::post('tag/create',[AdminTagController::class,'createTag'])->name('admin.createTag');
@@ -74,6 +79,5 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function () {
 Route::get('/register',[AuthController::class,'create'])->name('register');
 Route::post('/register',[AuthController::class,'store'])->name('postRegister');
 Route::get('/login',[AuthController::class,'loginPage'])->name('login');
-Route::post('/login',[AuthController::class,'userLogin'])->name('postLo
-gin');
+Route::post('/login',[AuthController::class,'userLogin'])->name('postLogin');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');

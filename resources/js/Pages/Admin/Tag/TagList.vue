@@ -116,7 +116,7 @@ export default {
                         //alert
                         Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'Tag has been deleted.',
                         'success'
                         )
                     }

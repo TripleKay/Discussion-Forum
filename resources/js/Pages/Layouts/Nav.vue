@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="container-fluid bg-white shadow-sm">
+        <div class="bg-white shadow-sm container-fluid">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <nav class="navbar navbar-expand-lg  bg-white">
+                        <nav class="bg-white navbar navbar-expand-lg">
                             <div class="container-fluid">
                                 <a class="navbar-brand text-uppercase" href="#">My Forum</a>
 
@@ -13,11 +13,11 @@
                                 </button>
 
                                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
-                                    <ul class="navbar-nav  mb-2 mb-lg-0 d-flex">
+                                    <ul class="mb-2 navbar-nav mb-lg-0 d-flex">
                                         <li class="nav-item">
                                             <Link class="nav-link" :class="{ 'active': route().current('home') }"  :href="route('home')">Home</Link>
                                         </li>
-                                        <li class="nav-item">
+                                        <li v-if="$page.props.auth_user.role == 'admin'" class="nav-item">
                                             <Link class="nav-link" :class="{ 'active': route().current('dashboard') }"  :href="route('dashboard')">Dashboard</Link>
                                         </li>
                                         <li class="nav-item">
@@ -31,20 +31,20 @@
 
                                                 <div class="modal-body">
 
-                                                    <div class="d-flex bg-white overflow-hidden mb-3 searchBox" style="border-radius: 15px; border: 1px solid var(--bs-secondary)">
-                                                        <div class="d-flex align-items-center ps-3  text-secondary bg-white"><i class="fas fa-search"></i></div>
-                                                        <input @keyup="search()" v-model="searchKey" type="text" class="form-control form-control-lg border-0" placeholder="search question...">
+                                                    <div class="mb-3 overflow-hidden bg-white d-flex searchBox" style="border-radius: 15px; border: 1px solid var(--bs-secondary)">
+                                                        <div class="bg-white d-flex align-items-center ps-3 text-secondary"><i class="fas fa-search"></i></div>
+                                                        <input @keyup="search()" v-model="searchKey" type="text" class="border-0 form-control form-control-lg" placeholder="search question...">
                                                     </div>
-                                                    <div v-show="searchKey.length == 0" class="text-center py-4" style="border-radius: 5px">
+                                                    <div v-show="searchKey.length == 0" class="py-4 text-center" style="border-radius: 5px">
                                                         <p>No recent searches</p>
                                                     </div>
                                                     <div class="overflow-hidden" style="border-radius: 5px">
-                                                         <div @click="questionDetail(que.slug)" v-for="(que,index) in questions" :key="index"  data-bs-dismiss="modal" class="questionBox btn d-flex justify-content-between align-items-center text-start w-100 py-3 px-3 bg-white mt-1">
+                                                         <div @click="questionDetail(que.slug)" v-for="(que,index) in questions" :key="index"  data-bs-dismiss="modal" class="px-3 py-3 mt-1 bg-white questionBox btn d-flex justify-content-between align-items-center text-start w-100">
                                                             <p class="mb-0">{{ que.title }}</p>
                                                             <i class="fas fa-angle-right"></i>
                                                         </div>
                                                     </div>
-                                                     <div v-if="questions.length == 0 && searchKey.length != 0" class="text-center py-4" style="border-radius: 5px">
+                                                     <div v-if="questions.length == 0 && searchKey.length != 0" class="py-4 text-center" style="border-radius: 5px">
                                                         <p class="text-danger">No results for "{{searchKey}}"</p>
                                                     </div>
                                                 </div>
@@ -53,7 +53,7 @@
                                             </div>
                                         </li>
                                         <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle btn py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="py-0 nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <img :src="'/uploads/users/'+$page.props.auth_user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                                             <span class="ms-2 fw-bold">{{ $page.props.auth_user.name }}</span>
                                         </a>

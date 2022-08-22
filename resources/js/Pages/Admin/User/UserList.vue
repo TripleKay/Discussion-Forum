@@ -35,8 +35,7 @@
                                     <td>{{ userList.question.length }}</td>
                                     <td>{{ userList.comment.length }}</td>
                                     <td>
-                                        <button @click="fireSuccess" class="btn btn-sm btn-outline-info">alert</button>
-                                        <a href="" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                        <button  @click="deleteUser(index,userList.id)" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
 
@@ -63,11 +62,33 @@ import { Link } from '@inertiajs/inertia-vue3'
             }
         },
         methods: {
-            fireSuccess () {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'hello my golobal toast',
-                    });
+            deleteUser(index,id){
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want delete User!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        //delete tag
+                         axios.get(this.route('admin.deleteUser',id)).then((response) => {
+                            if(response.data.success){
+                                this.userLists.splice(index,1);
+                                }
+                        })
+                        //alert
+                        Swal.fire(
+                        'Deleted!',
+                        'User has been deleted.',
+                        'success'
+                        )
+                    }
+                    })
+
             }
         },
         created(){

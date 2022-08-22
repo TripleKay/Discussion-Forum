@@ -1,25 +1,25 @@
 <template>
     <div>
-        <Master>
-            <Question :question="question" ></Question>
-        </Master>
+        <AdminMaster>
+            <!-- ------------content---------------  -->
+            <QuestionDetail :question="question"></QuestionDetail>
+        </AdminMaster>
     </div>
 </template>
 
 <script>
-import Master from "../Layouts/Master.vue";
+import AdminMaster from "../Layouts/AdminMaster.vue";
 import { Link } from '@inertiajs/inertia-vue3';
-import Swal from 'sweetalert2';
-import Question from "../Components/QuestionDetail.vue"
+import QuestionDetail from "../../Components/QuestionDetail.vue";
+
     export default {
-        name: "QuestionDetail",
+        name: 'QuestionList',
         components: {
-            Master,Link,Question
+            AdminMaster,Link,QuestionDetail
         },
         data () {
             return {
                 question: '',
-                imgPath: '/uploads/users/',
             }
         },
         created(){

@@ -92,15 +92,6 @@ class PageController extends Controller
         ]);
     }
 
-    //save question check on user
-    private function checkSaveQuestion($questionId){
-        $saveQuestion = QuestionSave::where('question_id',$questionId)->where('user_id',auth()->user()->id)->first();
-        if($saveQuestion){
-            $isSaved = true;
-        }else{
-            $isSaved = false;
-        }
-        return $isSaved;
-    }
+    
 
 }
