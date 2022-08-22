@@ -61,7 +61,7 @@
                             <!-- ------------views---------------  -->
                             <div class="me-3 d-flex align-items-center">
                                 <i class="py-2 text-center far fa-eye rounded-circle bg-light text-secondary" style="width: 30px; height: 30px"></i>
-                                <span class="mb-0 ms-1 text-dark">3</span>
+                                <span class="mb-0 ms-1 text-dark">{{ que.viewCount }}</span>
                             </div>
                         </div>
                         <Link :href="route('question.detail',que.slug)" class="btn btn-outline-secondary">Read More</Link>
@@ -197,37 +197,37 @@ import Swal from 'sweetalert2';
         transform: scale(1);
         transition: .3s linear;
     }
-    /* .questionCard:hover{
+    .questionCard:hover{
         border: 1px solid var(--bs-secondary) !important;
-        transform: scale(1.02);
+        /* transform: scale(1.02); */
         transition: .3s linear;
-    } */
+    }
     .questionCard .underline-hover-effect {
-  text-decoration: none;
-  color: inherit;
-}
+        text-decoration: none;
+        color: inherit;
+    }
 
-.underline-hover-effect {
-  display: inline-block;
-  padding-bottom: 0.25rem; /* defines the space between text and underline */
-  position: relative;
-}
+    .underline-hover-effect {
+        display: inline-block;
+        padding-bottom: 0.25rem;
+        position: relative;
+    }
 
-.underline-hover-effect::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--bs-primary);
-  transition: width 0.25s ease-out;
-}
-.underline-hover-effect:hover::before {
-  width: 100%;
-  left: 0;
-  right: auto;
-}
+    .underline-hover-effect::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--bs-primary);
+        transition: width 0.25s ease-out;
+    }
+    .underline-hover-effect:hover::before {
+        width: 100%;
+        left: 0;
+        right: auto;
+    }
     .like {
         cursor: pointer !important;
         transition: .3s linear;

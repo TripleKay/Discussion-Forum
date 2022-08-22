@@ -40,8 +40,8 @@
                             <span class="mb-0 ms-1 text-dark">{{ question.comment.length }}</span>
                         </div>
                         <div class="me-3 d-flex align-items-center">
-                            <i class="py-2 text-center far rounded-circle bg-light fa-star text-warning" style="width: 30px; height: 30px"></i>
-                            <span class="mb-0 ms-1 text-dark">3</span>
+                            <i class="py-2 text-center far rounded-circle bg-light fa-eye text-secondary" style="width: 30px; height: 30px"></i>
+                            <span class="mb-0 ms-1 text-dark">{{ question.viewCount }}</span>
                         </div>
                     </div>
                     <hr>

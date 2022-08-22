@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('question/edit/{slug}',[QuestionController::class,'editQuestion'])->name('question.edit');
     Route::post('question/edit/{slug}',[QuestionController::class,'updateQuestion'])->name('question.update');
 
+    // Route::get('question/create',[QuestionController::class,'createQuestion'])->name('question.create');
+
     Route::get('question/like/{id}',[PageController::class,'like'])->name('question.like');
     Route::get('question/disLike/{id}',[PageController::class,'disLike'])->name('question.disLike');
     Route::post('question/makeSolved',[QuestionController::class,'makeSolved'])->name('question.makeSolved');

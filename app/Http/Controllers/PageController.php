@@ -9,8 +9,10 @@ use App\Models\QuestionLike;
 use Illuminate\Http\Request;
 use App\Models\QuestionComment;
 use App\Models\QuestionSave;
+use App\Models\QuestionViewer;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Question as QuestionTrait;
+use Carbon\Carbon;
 
 class PageController extends Controller
 {
@@ -63,6 +65,7 @@ class PageController extends Controller
     //question detail
     public function questionDetail($slug){
         $question = Question::where('slug',$slug)->with(['user','comment.user','questionSave','tag'])->first();
+        $this->addQuestionViewer($question->id);
         $question->isLike = $this->getLikeDetail($question->id)['isLike'];
         $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
         $question->isSaved = $this->checkSaveQuestion($question->id);
@@ -92,6 +95,15 @@ class PageController extends Controller
         ]);
     }
 
-    
+    //added question viewer count
+    private function addQuestionViewer($questionId){
+        QuestionViewer::create([
+            'user_id' => auth()->user()->id,
+            'question_id' => $questionId,
+            'created_at' => Carbon::now(),
+        ]);
+    }
+
+
 
 }

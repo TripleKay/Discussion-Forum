@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\QuestionLike;
 use App\Models\QuestionSave;
+use App\Models\QuestionViewer;
 use Illuminate\Support\Facades\Auth;
 
 trait Question {
@@ -36,5 +37,11 @@ trait Question {
             $isSaved = false;
         }
         return $isSaved;
+    }
+
+    //question viewer count
+    public function viewCount($questionId){
+        $viewCount = QuestionViewer::select(DB::raw('COUNT(id) as view_count'))->where('question_id',$questionId)->value('view_count');
+        return $viewCount;
     }
 }

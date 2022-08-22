@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\QuestionViewer;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,7 +20,7 @@ class Question extends Model
         'is_fiexed'
     ];
 
-    protected $appends = ['time'];
+    protected $appends = ['time','viewCount'];
 
     public function user(){
         return $this->belongsTo(User::class,'user_id');
@@ -39,5 +41,10 @@ class Question extends Model
     public function getTimeAttribute(){
         $time = new Carbon($this->created_at);
         return $time->diffForHumans();
+    }
+
+    public function getViewCountAttribute(){
+        $viewCount = QuestionViewer::select(DB::raw('COUNT(id) as view_count'))->where('question_id',$this->id)->value('view_count');
+        return $viewCount;
     }
 }
