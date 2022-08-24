@@ -21,8 +21,38 @@
                                             <Link class="nav-link" :class="{ 'active': route().current('dashboard') }"  :href="route('dashboard')">Dashboard</Link>
                                         </li>
                                         <li class="nav-item">
-                                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                <i class="fas fa-search"></i>
+                                            <!-- notification dropdown -->
+                                            <div class="dropdown">
+                                                <button class="btn nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-bell"></i>
+                                                    <span class="p-1 badge bg-danger position-absolute rounded-pill" style="margin: 3px 0px -1px 0px">{{$page.props.dbNotification.length }}</span>
+                                                </button>
+                                                <ul class="bg-white shadow dropdown-menu dropdown-menu-end" style="width: 500px !important;border-radius: 10px">
+                                                    <li class="d-flex justify-content-between align-items-center">
+                                                        <h6 class="dropdown-header">New Notification</h6>
+                                                        <a href="" class="btn btn-sm btn-light me-2">All Notification <i class="fas fa-angle-right"></i></a>
+                                                    </li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li v-for="noti in $page.props.dbNotification" :key="noti.id">
+                                                        <Link :href="route('question.detail',{'slug':noti.data.slug,'notiId': noti.id})" class="dropdown-item"  style="border-bottom: .3px solid #88888830">
+                                                            <div class="d-flex align-items-start">
+                                                            <img :src="'/uploads/users/'+noti.data.commentUserImage" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
+                                                            <div class="flex-wrap d-flex ms-2">
+                                                                <p class="mb-0 text-danger text-wrap">"{{ noti.data.commentUserName }}"<span class="text-secondary">{{ noti.data.message }}</span><span class="">"{{ noti.data.title.substring(0,30) }}...."</span></p>
+                                                            </div>
+                                                            </div>
+                                                        </Link>
+                                                    </li>
+                                                    <li v-show="$page.props.dbNotification.length == 0" class="py-3">
+                                                        <p class="mb-0 text-center dropdown-item">No new notifications found</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- notification dropdown end-->
+                                        </li>
+                                        <li class="nav-item">
+                                            <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <i class="px-1 fas fa-search text-secondary"></i>
                                             </button>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

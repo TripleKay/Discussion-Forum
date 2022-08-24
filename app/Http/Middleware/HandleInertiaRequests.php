@@ -55,6 +55,11 @@ class HandleInertiaRequests extends Middleware
             'auth_user' => function(){
                 return Auth::user();
             },
+            'dbNotification' => function(){
+                if(Auth::check()){
+                    return Auth::user()->unreadNotifications;
+                }
+            }
 
         ]);
     }

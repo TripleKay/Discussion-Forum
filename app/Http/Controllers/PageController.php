@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Tag;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Question;
 use App\Models\QuestionLike;
-use Illuminate\Http\Request;
-use App\Models\QuestionComment;
 use App\Models\QuestionSave;
+use Illuminate\Http\Request;
 use App\Models\QuestionViewer;
+use App\Models\QuestionComment;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Question as QuestionTrait;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserCommentNotification;
 
 class PageController extends Controller
 {
@@ -49,6 +52,10 @@ class PageController extends Controller
             'user_id' => Auth::user()->id,
             'question_id' => $id,
         ]);
+
+        //notify to user
+        $this->notifyToUser($id,'liked your question');
+
         return response()->json([
             'success' => true,
         ]);
@@ -63,12 +70,17 @@ class PageController extends Controller
     }
 
     //question detail
-    public function questionDetail($slug){
+    public function questionDetail($slug,$notiId=null){
         $question = Question::where('slug',$slug)->with(['user','comment.user','questionSave','tag'])->first();
         $this->addQuestionViewer($question->id);
         $question->isLike = $this->getLikeDetail($question->id)['isLike'];
         $question->likeCount = $this->getLikeDetail($question->id)['likeCount'];
         $question->isSaved = $this->checkSaveQuestion($question->id);
+
+        //read notification
+        if($notiId){
+            auth()->user()->notifications->where('id',$notiId)->markAsRead();
+        }
         return Inertia::render('Question/QuestionDetail')->with(['question' => $question]);
     }
 
@@ -80,11 +92,27 @@ class PageController extends Controller
             'comment' => $request->comment,
         ]);
 
+        //notify to user
+        $this->notifyToUser($request->questionId,'commented your question');
+
         $comment = QuestionComment::where('id',$currentComment->id)->with('user')->first();
         return response()->json([
             'success' => true ,
             'comment' => $comment,
         ]);
+    }
+
+
+    private function notifyToUser($questionId,$message){
+        //notification
+        $data = Question::where('id',$questionId)->first();
+        $data->commentUserName = auth()->user()->name;
+        $data->commentUserImage = auth()->user()->image;
+        $data->message = $message;
+
+        //notify to user
+        $user = User::where('id',$data->user_id)->first();
+        Notification::send($user, new UserCommentNotification($data));
     }
 
     //delete comment

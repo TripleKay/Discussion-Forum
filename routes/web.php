@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     //question
     Route::get('question/create',[QuestionController::class,'createQuestion'])->name('question.create');
     Route::post('question/create',[QuestionController::class,'storeQuestion'])->name('question.store');
-    Route::get('question/detail/{slug}',[PageController::class,'questionDetail'])->name('question.detail');
+    Route::get('question/detail/{slug}/{notiId?}',[PageController::class,'questionDetail'])->name('question.detail');
     Route::get('question/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.delete');
     Route::get('question/edit/{slug}',[QuestionController::class,'editQuestion'])->name('question.edit');
     Route::post('question/edit/{slug}',[QuestionController::class,'updateQuestion'])->name('question.update');
@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/userQuestion',[ProfileController::class,'userQuestion'])->name('profile.userQuestion');
     Route::get('profile/savedQuestion',[ProfileController::class,'showSaveQuestion'])->name('showSaveQuestion');
 
+    //notification
+    // Route::get()
 
 });
 
