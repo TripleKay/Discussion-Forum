@@ -58,7 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::get('profile/savedQuestion',[ProfileController::class,'showSaveQuestion'])->name('showSaveQuestion');
 
     //notification
-    // Route::get()
+    Route::get('/profile/allNotification',[ProfileController::class,'showAllNotification'])->name('showAllNotification');
+    Route::get('/notification/markAsRead/{id}',[ProfileController::class,'markAsRead'])->name('markAsRead');
 
 });
 

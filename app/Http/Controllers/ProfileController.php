@@ -105,4 +105,16 @@ class ProfileController extends Controller
         $questions = QuestionSave::select('question_id')->where('user_id',Auth::user()->id)->with('question')->paginate(3);
         return Inertia::render('Question/SavedQuestions')->with(['questions' => $questions]);
     }
+
+    //showAllNotification
+    public function showAllNotification(){
+        $notifications = auth()->user()->notifications;
+        return Inertia::render('Profile/UserNotification')->with(['notifications'=>$notifications]);
+    }
+
+    //mask as read notification
+    public function markAsRead($id){
+        auth()->user()->notifications->where('id',$id)->markAsRead();
+        return redirect()->back();
+    }
 }

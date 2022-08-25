@@ -30,7 +30,7 @@
                                                 <ul class="bg-white shadow dropdown-menu dropdown-menu-end" style="width: 500px !important;border-radius: 10px">
                                                     <li class="d-flex justify-content-between align-items-center">
                                                         <h6 class="dropdown-header">New Notification</h6>
-                                                        <a href="" class="btn btn-sm btn-light me-2">All Notification <i class="fas fa-angle-right"></i></a>
+                                                        <Link :href="route('showAllNotification')" class="btn btn-sm btn-light me-2">All Notification <i class="fas fa-angle-right"></i></Link>
                                                     </li>
                                                     <li><hr class="dropdown-divider"></li>
                                                     <li v-for="noti in $page.props.dbNotification" :key="noti.id">
@@ -82,12 +82,17 @@
                                             </div>
                                             </div>
                                         </li>
+                                        <li class="nav-item">
+                                            <Link class="nav-link" :href="route('showSaveQuestion')" :class="{ 'active': route().current('showSaveQuestion') }">
+                                                <i class="fas fa-heart px-1 text-secondary"></i>
+                                            </Link>
+                                        </li>
                                         <li class="nav-item dropdown">
                                         <a class="py-0 nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <img :src="'/uploads/users/'+$page.props.auth_user.image" class="rounded-circle" alt="" srcset="" style="width: 40px ; height: 40px;">
                                             <span class="ms-2 fw-bold">{{ $page.props.auth_user.name }}</span>
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown" style="border-radius: 10px">
                                             <li><Link class="dropdown-item" href="/profile/edit"><i class="fas fa-user-edit me-2"></i>Profile</Link></li>
                                             <li><Link :href="route('profile.userQuestion')" class="dropdown-item"><i class="fas fa-question-circle me-2"></i>Your Questions</Link></li>
                                             <li><hr class="dropdown-divider"></li>

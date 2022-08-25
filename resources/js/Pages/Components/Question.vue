@@ -32,8 +32,8 @@
                         <!-- ------------title and status---------------  -->
                         <div class="mb-2 d-flex align-items-center">
                             <div class="mb-0 h6 me-2">
-                                <span v-if="que.is_solved == 'true'" class="py-0 btn btn-light text-success btn-sm">Is Solved !</span>
-                                <span v-else class="py-0 btn btn-light text-danger btn-sm">Need Solved ?</span>
+                                <span v-if="que.is_solved == 'true'" class="text-nowrap py-0 btn btn-light text-success btn-sm">Is Solved !</span>
+                                <span v-else class="py-0 btn btn-light text-danger btn-sm text-nowrap">Need Solved ?</span>
                             </div>
                             <h4 class="mb-0 underline-hover-effect">{{ que.title }}</h4>
                         </div>

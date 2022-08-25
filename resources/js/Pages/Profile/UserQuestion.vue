@@ -11,7 +11,7 @@
 import Master from "../Layouts/Master.vue";
 import Question from "../Components/Question.vue";
 import Pagination from "../Components/Pagination.vue";
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/inertia-vue3';
     export default {
         name: 'UserQuestion',
         components: {

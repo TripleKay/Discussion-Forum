@@ -82,7 +82,7 @@
                                     </td>
                                     <td>{{ question.title.substring(0,80) }}</td>
                                     <td>{{ question.description.substring(0,100) }}.....</td>
-                                    <td>{{ question.comment.length }} comments</td>
+                                    <td>{{ question.comment_count }} comments</td>
                                     <td class="text-nowrap">
                                         <Link :href="route('admin.showQuestion',question.slug)" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></Link>
                                     </td>
