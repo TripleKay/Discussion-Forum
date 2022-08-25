@@ -65,6 +65,7 @@
                                     <th scope="col">Name</th>
                                     <th>Description</th>
                                     <th>Comment</th>
+                                    <th class="text-nowrap">Created At</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -76,13 +77,14 @@
                                             <img :src="'/uploads/users/'+question.user.image" class="rounded-circle" alt="" srcset="" style="width: 35px ; height: 35px;">
                                             <div class="ms-2">
                                                 <h6 class="mb-0 text-nowrap">{{ question.user.name}}</h6>
-                                                <span class="text-black-50">{{ question.time }}</span>
+                                                <span class="" :class="question.user.onlineStatus == 'online' ? 'text-success' : 'text-black-50' ">{{ question.user.onlineStatus }}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>{{ question.title.substring(0,80) }}</td>
                                     <td>{{ question.description.substring(0,100) }}.....</td>
                                     <td>{{ question.comment_count }} comments</td>
+                                    <td>{{ question.time }}</td>
                                     <td class="text-nowrap">
                                         <Link :href="route('admin.showQuestion',question.slug)" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></Link>
                                     </td>

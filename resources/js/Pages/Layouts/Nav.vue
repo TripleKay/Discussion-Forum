@@ -6,7 +6,7 @@
                     <div class="col-12">
                         <nav class="bg-white navbar navbar-expand-lg">
                             <div class="container-fluid">
-                                <a class="navbar-brand text-uppercase" href="#">My Forum</a>
+                                <Link :href="route('home')" class="navbar-brand text-uppercase">My Forum</Link>
 
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span class="navbar-toggler-icon"></span>

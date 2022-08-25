@@ -16,6 +16,7 @@
                                     <th scope="col">Name</th>
                                     <th>Description</th>
                                     <th>Comment</th>
+                                    <th class="text-nowrap">Created At</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -27,13 +28,14 @@
                                             <img :src="'/uploads/users/'+questionList.user.image" class="rounded-circle" alt="" srcset="" style="width: 35px ; height: 35px;">
                                             <div class="ms-2">
                                                 <h6 class="mb-0 text-nowrap">{{ questionList.user.name}}</h6>
-                                                <span class="text-black-50">{{ questionList.time }}</span>
+                                                <span class="" :class="questionList.user.onlineStatus == 'online' ? 'text-success' : 'text-black-50' ">{{ questionList.user.onlineStatus }}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>{{ questionList.title.substring(0,80) }}</td>
                                     <td>{{ questionList.description.substring(0,100) }}.....</td>
                                     <td>{{ questionList.comment.length }} comments</td>
+                                    <td>{{ questionList.time }}</td>
                                     <td class="text-nowrap">
                                         <Link :href="route('admin.showQuestion',questionList.slug)" class="btn btn-outline-info btn-sm me-2"><i class="fas fa-eye"></i></Link>
                                         <button @click="deleteQuestion(index,questionList.id)" class="btn btn-outline-danger btn-sm me-2"><i class="fas fa-trash"></i></button>
